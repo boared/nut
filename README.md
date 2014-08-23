@@ -1,4 +1,4 @@
 nut
 ===
 
-My unpretentious attempt to make a game engine from scratch
+This is my unpretentious attempt to make a game engine from scratch.
