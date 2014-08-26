@@ -9,6 +9,7 @@
 #define VECTOR4D_H
 
 #include <cmath>
+#include "Math.h"
 
 
 
@@ -98,7 +99,7 @@ namespace nut
          */
         void normalize()
         {
-            if (std::abs(x) > EPSILON || std::abs(y) > EPSILON || std::abs(z) > EPSILON || std::abs(w) > EPSILON)
+            if (std::abs(x) > Math<T>::EPSILON || std::abs(y) > Math<T>::EPSILON || std::abs(z) > Math<T>::EPSILON || std::abs(w) > Math<T>::EPSILON)
             {
                 T rLength = T(1.0) / std::sqrt(x * x + y * y + z * z + w * w);
 
@@ -297,8 +298,8 @@ namespace nut
          */
         bool operator == ( const Vector4D& v ) const
         {
-            return (std::abs(x - v.x) < EPSILON && std::abs(y - v.y) < EPSILON &&
-                    std::abs(z - v.z) < EPSILON && std::abs(w - v.w) < EPSILON);
+            return (std::abs(x - v.x) < Math<T>::EPSILON && std::abs(y - v.y) < Math<T>::EPSILON &&
+                    std::abs(z - v.z) < Math<T>::EPSILON && std::abs(w - v.w) < Math<T>::EPSILON);
         }
 
         /**
@@ -310,15 +311,9 @@ namespace nut
          */
         bool operator != ( const Vector4D& v ) const
         {
-            return (std::abs(x - v.x) > EPSILON || std::abs(y - v.y) > EPSILON ||
-                    std::abs(z - v.z) > EPSILON || std::abs(w - v.w) > EPSILON);
+            return (std::abs(x - v.x) > Math<T>::EPSILON || std::abs(y - v.y) > Math<T>::EPSILON ||
+                    std::abs(z - v.z) > Math<T>::EPSILON || std::abs(w - v.w) > Math<T>::EPSILON);
         }
-
-
-
-        private:
-
-        static const T EPSILON; /**< Very small value used for vector comparisons. */
     };
 
     template<typename T> const Vector4D<T> Vector4D<T>::ZERO( T(0.0), T(0.0), T(0.0), T(0.0) );
@@ -327,6 +322,5 @@ namespace nut
     template<typename T> const Vector4D<T> Vector4D<T>::Y_AXIS( T(0.0), T(1.0), T(0.0), T(0.0) );
     template<typename T> const Vector4D<T> Vector4D<T>::Z_AXIS( T(0.0), T(0.0), T(1.0), T(0.0) );
     template<typename T> const Vector4D<T> Vector4D<T>::W_AXIS( T(0.0), T(0.0), T(0.0), T(1.0) );
-    template<typename T> const T Vector4D<T>::EPSILON = T(1e-10);
 }
 #endif // VECTOR4D_H

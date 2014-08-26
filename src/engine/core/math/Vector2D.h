@@ -9,6 +9,7 @@
 #define VECTOR2D_H
 
 #include <cmath>
+#include "Math.h"
 
 
 
@@ -92,7 +93,7 @@ namespace nut
          */
         void normalize()
         {
-            if (std::abs(x) > EPSILON || std::abs(y) > EPSILON)
+            if (std::abs(x) > Math<T>::EPSILON || std::abs(y) > Math<T>::EPSILON)
             {
                 T rLength = T(1.0) / std::sqrt(x * x + y * y);
 
@@ -301,7 +302,7 @@ namespace nut
          */
         bool operator == ( const Vector2D& v ) const
         {
-            return (std::abs(x - v.x) < EPSILON && std::abs(y - v.y) < EPSILON);
+            return (std::abs(x - v.x) < Math<T>::EPSILON && std::abs(y - v.y) < Math<T>::EPSILON);
         }
 
         /**
@@ -313,20 +314,13 @@ namespace nut
          */
         bool operator != ( const Vector2D& v ) const
         {
-            return (std::abs(x - v.x) > EPSILON || std::abs(y - v.y) > EPSILON);
+            return (std::abs(x - v.x) > Math<T>::EPSILON || std::abs(y - v.y) > Math<T>::EPSILON);
         }
-
-
-
-        private:
-
-        static const T EPSILON; /**< Very small value used for vector comparisons. */
     };
 
     template<typename T> const Vector2D<T> Vector2D<T>::ZERO( T(0.0), T(0.0) );
     template<typename T> const Vector2D<T> Vector2D<T>::UNIT( T(1.0), T(1.0) );
     template<typename T> const Vector2D<T> Vector2D<T>::X_AXIS( T(1.0), T(0.0) );
     template<typename T> const Vector2D<T> Vector2D<T>::Y_AXIS( T(0.0), T(1.0) );
-    template<typename T> const T Vector2D<T>::EPSILON = T(1e-10);
 }
 #endif // VECTOR2D_H

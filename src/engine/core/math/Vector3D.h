@@ -9,6 +9,7 @@
 #define VECTOR3D_H
 
 #include <cmath>
+#include "Math.h"
 
 
 
@@ -95,7 +96,7 @@ namespace nut
          */
         void normalize()
         {
-            if (std::abs(x) > EPSILON || std::abs(y) > EPSILON || std::abs(z) > EPSILON)
+            if (std::abs(x) > Math<T>::EPSILON || std::abs(y) > Math<T>::EPSILON || std::abs(z) > Math<T>::EPSILON)
             {
                 T rLength = T(1.0) / std::sqrt(x * x + y * y + z * z);
 
@@ -299,8 +300,8 @@ namespace nut
          */
         bool operator == ( const Vector3D& v ) const
         {
-            return (std::abs(x - v.x) < EPSILON && std::abs(y - v.y) < EPSILON &&
-                    std::abs(z - v.z) < EPSILON);
+            return (std::abs(x - v.x) < Math<T>::EPSILON && std::abs(y - v.y) < Math<T>::EPSILON &&
+                    std::abs(z - v.z) < Math<T>::EPSILON);
         }
 
         /**
@@ -312,15 +313,9 @@ namespace nut
          */
         bool operator != ( const Vector3D& v ) const
         {
-            return (std::abs(x - v.x) > EPSILON || std::abs(y - v.y) > EPSILON ||
-                    std::abs(z - v.z) > EPSILON);
+            return (std::abs(x - v.x) > Math<T>::EPSILON || std::abs(y - v.y) > Math<T>::EPSILON ||
+                    std::abs(z - v.z) > Math<T>::EPSILON);
         }
-
-
-
-        private:
-
-        static const T EPSILON; /**< Very small value used for vector comparisons. */
     };
 
     template<typename T> const Vector3D<T> Vector3D<T>::ZERO( T(0.0), T(0.0), T(0.0) );
@@ -328,6 +323,5 @@ namespace nut
     template<typename T> const Vector3D<T> Vector3D<T>::X_AXIS( T(1.0), T(0.0), T(0.0) );
     template<typename T> const Vector3D<T> Vector3D<T>::Y_AXIS( T(0.0), T(1.0), T(0.0) );
     template<typename T> const Vector3D<T> Vector3D<T>::Z_AXIS( T(0.0), T(0.0), T(1.0) );
-    template<typename T> const T Vector3D<T>::EPSILON = T(1e-10);
 }
 #endif // VECTOR3D_H
