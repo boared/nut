@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __DOUBLESTACKALLOCATOR_H__
-#define __DOUBLESTACKALLOCATOR_H__
+#ifndef DOUBLESTACKALLOCATOR_H
+#define DOUBLESTACKALLOCATOR_H
 
 #include <mutex>
 
@@ -170,4 +170,4 @@ namespace nut
         void operator=(DoubleStackAllocator const&); // Don't implement
 	};
 }
-#endif // __DOUBLESTACKALLOCATOR_H__
+#endif // DOUBLESTACKALLOCATOR_H

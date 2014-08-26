@@ -1,18 +1,18 @@
-/** \file FenBoundingBox.h
+/** \file BoundingBox.h
     \brief Class definition for an bounding box.
 */
 
-#ifndef __FenBoundingBox_H__
-#define __FenBoundingBox_H__
+#ifndef BOUNDINGBOX_H
+#define BOUNDINGBOX_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief BoundingBox. */
 	class BoundingBox
 	{
 
 	};
 }
 
-#endif // __FenBoundingBox_H__
+#endif // BOUNDINGBOX_H

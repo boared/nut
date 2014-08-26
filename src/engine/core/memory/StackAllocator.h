@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __STACKALLOCATOR_H__
-#define __STACKALLOCATOR_H__
+#ifndef STACKALLOCATOR_H
+#define STACKALLOCATOR_H
 
 #include <mutex>
 
@@ -146,4 +146,4 @@ namespace nut
         void operator=(StackAllocator const&); // Don't implement
 	};
 }
-#endif // __STACKALLOCATOR_H__
+#endif // STACKALLOCATOR_H

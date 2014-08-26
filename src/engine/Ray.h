@@ -1,18 +1,18 @@
-/** \file FenRay.h
+/** \file Ray.h
     \brief Class definition for a ray.
 */
 
-#ifndef __FenRay_H__
-#define __FenRay_H__
+#ifndef RAY_H
+#define RAY_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief Ray. */
 	class Ray
 	{
 
 	};
 }
 
-#endif // __FenRay_H__
+#endif // RAY_H

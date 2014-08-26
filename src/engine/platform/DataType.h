@@ -6,8 +6,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __DATATYPE_H__
-#define __DATATYPE_H__
+#ifndef DATATYPE_H
+#define DATATYPE_H
 
 #include <cstdint>
 
@@ -171,4 +171,4 @@ namespace nut
     };
 }
 
-#endif // __DATATYPE_H__
+#endif // DATATYPE_H

@@ -6,8 +6,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __ARCHITECTUREINFO_H__
-#define __ARCHITECTUREINFO_H__
+#ifndef ARCHITECTUREINFO_H
+#define ARCHITECTUREINFO_H
 
 #undef NUT_X86
 #undef NUT_X64
@@ -28,4 +28,4 @@
 
 
 
-#endif // __ARCHITECTUREINFO_H__
+#endif // ARCHITECTUREINFO_H

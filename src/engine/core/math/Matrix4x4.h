@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __MATRIX4X4_H__
-#define __MATRIX4X4_H__
+#ifndef MATRIX4X4_H
+#define MATRIX4X4_H
 
 #include <cstring>
 #include <cmath>
@@ -462,4 +462,4 @@ namespace nut
         return inv;
     }
 }
-#endif // __MATRIX4X4_H__
+#endif // MATRIX4X4_H

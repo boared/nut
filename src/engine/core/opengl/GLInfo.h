@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
  
-#ifndef __GLINFO_H__
-#define __GLINFO_H__
+#ifndef GLINFO_H
+#define GLINFO_H
 
 #include <string>
 #include <vector>
@@ -112,4 +112,4 @@ namespace nut
     };
 }
 
-#endif // __GLINFO_H__
+#endif // GLINFO_H

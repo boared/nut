@@ -6,8 +6,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __GLMATRIX_H__
-#define __GLMATRIX_H__
+#ifndef GLMATRIX_H
+#define GLMATRIX_H
 
 #include <cstring>
 #include <cmath>
@@ -882,4 +882,4 @@ namespace nut
         return inv * ( T(1.0) / determinant );
     }
 }
-#endif // __GLMATRIX_H__
+#endif // GLMATRIX_H

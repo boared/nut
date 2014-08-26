@@ -7,8 +7,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __XORSHIFT_H__
-#define __XORSHIFT_H__
+#ifndef XORSHIFT_H
+#define XORSHIFT_H
 
 
 
@@ -70,4 +70,4 @@ namespace nut
     unsigned long XORShift::_w = 88675123;
 }
 
-#endif // __XORSHIFT_H__
+#endif // XORSHIFT_H

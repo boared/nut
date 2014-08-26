@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __INIFILESHANDLER_H__
-#define __INIFILESHANDLER_H__
+#ifndef INIFILESHANDLER_H
+#define INIFILESHANDLER_H
 
 #include <fstream>
 #include <vector>
@@ -124,4 +124,4 @@ namespace nut
     };
 }
 
-#endif // __INIFILESHANDLER_H__
+#endif // INIFILESHANDLER_H

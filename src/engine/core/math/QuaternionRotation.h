@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __QUATERNIONROTATION_H__
-#define __QUATERNIONROTATION_H__
+#ifndef QUATERNIONROTATION_H
+#define QUATERNIONROTATION_H
 
 #include <cstring>
 #include "Math.h"
@@ -275,4 +275,4 @@ namespace nut
         T _q[4]; /**< Stores the four values of the quaternion. */
 	};
 }
-#endif // __QUATERNIONROTATION_H__
+#endif // QUATERNIONROTATION_H

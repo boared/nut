@@ -1,18 +1,18 @@
-/** \file FenLine.h
+/** \file Line.h
     \brief Class definition for a line.
 */
 
-#ifndef __FenLine_H__
-#define __FenLine_H__
+#ifndef LINE_H
+#define LINE_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief Line. */
 	class Line
 	{
 
 	};
 }
 
-#endif // __FenLine_H__
+#endif // LINE_H

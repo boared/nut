@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __VECTOR4D_H__
-#define __VECTOR4D_H__
+#ifndef VECTOR4D_H
+#define VECTOR4D_H
 
 #include <cmath>
 
@@ -329,4 +329,4 @@ namespace nut
     template<typename T> const Vector4D<T> Vector4D<T>::W_AXIS( T(0.0), T(0.0), T(0.0), T(1.0) );
     template<typename T> const T Vector4D<T>::EPSILON = T(1e-10);
 }
-#endif // __VECTOR4D_H__
+#endif // VECTOR4D_H

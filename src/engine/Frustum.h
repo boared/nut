@@ -1,18 +1,18 @@
-/** \file FenFrustum.h
+/** \file Frustum.h
     \brief Class definition for a frustum.
 */
 
-#ifndef __FenFrustum_H__
-#define __FenFrustum_H__
+#ifndef FRUSTUM_H
+#define FRUSTUM_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief Frustum. */
 	class Frustum
 	{
 
 	};
 }
 
-#endif // __FenFrustum_H__
+#endif // FRUSTUM_H

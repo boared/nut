@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __MATRIX3X3_H__
-#define __MATRIX3X3_H__
+#ifndef MATRIX3X3_H
+#define MATRIX3X3_H
 
 #include <cstring>
 #include <cmath>
@@ -415,4 +415,4 @@ namespace nut
                           invDet * (_m[0]*_m[4] - _m[3]*_m[1]) );
     }
 }
-#endif // __MATRIX3X3_H__
+#endif // MATRIX3X3_H

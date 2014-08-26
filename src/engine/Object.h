@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __OBJECT_H__
-#define __OBJECT_H__
+#ifndef OBJECT_H
+#define OBJECT_H
 
 
 
@@ -18,4 +18,4 @@ namespace nut
         private:
     };
 }
-#endif // __OBJECT_H__
+#endif // OBJECT_H

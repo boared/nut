@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __EXPDEVIATE_H__
-#define __EXPDEVIATE_H__
+#ifndef EXPDEVIATE_H
+#define EXPDEVIATE_H
 
 #include <cmath>
 
@@ -99,4 +99,4 @@ namespace nut
     unsigned long XORShift::_w = 88675123;
 }
 
-#endif // __EXPDEVIATE_H__
+#endif // EXPDEVIATE_H

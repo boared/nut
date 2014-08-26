@@ -1,18 +1,18 @@
-/** \file FenOrientedBoundingBox.h
+/** \file OrientedBoundingBox.h
     \brief Class definition for an oriented bounding box.
 */
 
-#ifndef __FenOrientedBoundingBox_H__
-#define __FenOrientedBoundingBox_H__
+#ifndef ORIENTEDBOUNDINGBOX_H
+#define ORIENTEDBOUNDINGBOX_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief OrientedBoundingBox. */
 	class OrientedBoundingBox
 	{
 
 	};
 }
 
-#endif // __FenOrientedBoundingBox_H__
+#endif // ORIENTEDBOUNDINGBOX_H

@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __MATH_H__
-#define __MATH_H__
+#ifndef MATH_H
+#define MATH_H
 
 
 
@@ -104,4 +104,4 @@ namespace nut
     template<typename T> const T Math<T>::_180_OVER_PI  = T(57.295779513082320876798154814105);
     template<typename T> const T Math<T>::PI_OVER_180   = T(0.01745329251994329576923690768489);
 }
-#endif // __MATH_H__
+#endif // MATH_H

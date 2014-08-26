@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __VECTOR2D_H__
-#define __VECTOR2D_H__
+#ifndef VECTOR2D_H
+#define VECTOR2D_H
 
 #include <cmath>
 
@@ -329,4 +329,4 @@ namespace nut
     template<typename T> const Vector2D<T> Vector2D<T>::Y_AXIS( T(0.0), T(1.0) );
     template<typename T> const T Vector2D<T>::EPSILON = T(1e-10);
 }
-#endif // __VECTOR2D_H__
+#endif // VECTOR2D_H

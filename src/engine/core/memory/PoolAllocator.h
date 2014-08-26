@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __POOLALLOCATOR_H__
-#define __POOLALLOCATOR_H__
+#ifndef POOLALLOCATOR_H
+#define POOLALLOCATOR_H
 
 #include <mutex>
 
@@ -140,4 +140,4 @@ namespace nut
         void operator=(PoolAllocator const&); // Don't implement
 	};
 }
-#endif // __POOLALLOCATOR_H__
+#endif // POOLALLOCATOR_H

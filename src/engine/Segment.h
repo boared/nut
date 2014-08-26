@@ -1,18 +1,18 @@
-/** \file FenSegment.h
+/** \file Segment.h
     \brief Class definition for a segment.
 */
 
-#ifndef __FenSegment_H__
-#define __FenSegment_H__
+#ifndef SEGMENT_H
+#define SEGMENT_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief Segment. */
 	class Segment
 	{
 
 	};
 }
 
-#endif // __FenSegment_H__
+#endif // SEGMENT_H

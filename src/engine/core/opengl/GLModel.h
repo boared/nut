@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __GLMODEL_H__
-#define __GLMODEL_H__
+#ifndef GLMODEL_H
+#define GLMODEL_H
 
 #include <vector>
 #include "GL/glew.h"
@@ -182,4 +182,4 @@ namespace nut
     };
 }
 
-#endif // __GLMODEL_H__
+#endif // GLMODEL_H

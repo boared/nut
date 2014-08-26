@@ -1,18 +1,18 @@
-/** \file FenPlane.h
+/** \file Plane.h
     \brief Class definition for a plane.
 */
 
-#ifndef __FenPlane_H__
-#define __FenPlane_H__
+#ifndef PLANE_H
+#define PLANE_H
 
-/** \brief Facility Engine namespace. */
-namespace fen
+
+
+namespace nut
 {
-	/** \brief Plane. */
 	class Plane
 	{
 
 	};
 }
 
-#endif // __FenPlane_H__
+#endif // PLANE_H

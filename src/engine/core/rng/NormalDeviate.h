@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __NORMALDEVIATE_H__
-#define __NORMALDEVIATE_H__
+#ifndef NORMALDEVIATE_H
+#define NORMALDEVIATE_H
 
 
 
@@ -76,4 +76,4 @@ namespace nut
     };
 }
 
-#endif // __NORMALDEVIATE_H__
+#endif // NORMALDEVIATE_H

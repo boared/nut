@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __VECTOR3D_H__
-#define __VECTOR3D_H__
+#ifndef VECTOR3D_H
+#define VECTOR3D_H
 
 #include <cmath>
 
@@ -330,4 +330,4 @@ namespace nut
     template<typename T> const Vector3D<T> Vector3D<T>::Z_AXIS( T(0.0), T(0.0), T(1.0) );
     template<typename T> const T Vector3D<T>::EPSILON = T(1e-10);
 }
-#endif // __VECTOR3D_H__
+#endif // VECTOR3D_H

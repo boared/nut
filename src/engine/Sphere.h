@@ -1,18 +1,18 @@
-/** \file FacilitySphere.h
+/** \file Sphere.h
     \brief Class definition for an sphere.
 */
 
-#ifndef __FacilitySphere_H__
-#define __FacilitySphere_H__
+#ifndef SPHERE_H
+#define SPHERE_H
 
-/** \brief Facility Engine namespace. */
+
+
 namespace fen
 {
-	/** \brief Sphere. */
 	class Sphere
 	{
 
 	};
 }
 
-#endif // __FacilitySphere_H__
+#endif // SPHERE_H

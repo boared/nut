@@ -5,8 +5,8 @@
 // * @author: Eder A. Perez.
 // */
 // 
-//#ifndef __GLSHADER_H__
-//#define __GLSHADER_H__
+//#ifndef GLSHADER_H
+//#define GLSHADER_H
 //
 //#include <string>
 //#include <vector>
@@ -48,7 +48,7 @@
 //    };
 //}
 //
-//#endif // __GLSHADER_H__
+//#endif // GLSHADER_H
 /** 
  * \file GLProgram.h
  * \brief This class create and handle OpenGL programs.
@@ -56,8 +56,8 @@
  * @author: Eder A. Perez.
  */
  
-#ifndef __GLPROGRAM_H__
-#define __GLPROGRAM_H__
+#ifndef GLPROGRAM_H
+#define GLPROGRAM_H
 
 #include <string>
 #include <vector>
@@ -99,4 +99,4 @@ namespace nut
     };
 }
 
-#endif // __GLPROGRAM_H__
+#endif // GLPROGRAM_H

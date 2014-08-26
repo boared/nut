@@ -2,15 +2,15 @@
  * \file Mother.h
  * \brief This class implements George Marsaglia's "The Mother of All" random
  * number generator producing uniformly distributed pseudo-random 32 bit values
- * witht period about 2^250.
+ * with period about 2^250.
  * 
  * source: http://www.stat.berkeley.edu/classes/s243/mother.c visited on may 10, 2014.
  * 
  * @author: Eder A. Perez.
  */
 
-#ifndef __MOTHER_H__
-#define __MOTHER_H__
+#ifndef MOTHER_H
+#define MOTHER_H
 
 
 
@@ -56,4 +56,4 @@ namespace nut
     };
 }
 
-#endif // __MOTHER_H__
+#endif // MOTHER_H

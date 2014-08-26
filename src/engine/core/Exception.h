@@ -3,8 +3,8 @@
  * \brief This header contains declarations for error handling, exceptions and assertions.
  */
 
-#ifndef __EXCEPTION_H__
-#define __EXCEPTION_H__
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
 #include <iostream>
 #include <string>
@@ -94,4 +94,4 @@ namespace nut
     #define REPORT_EXCEPTION(file, line) reportException("", (__FILE__), (__LINE__))
 }
 
-#endif // __EXCEPTION_H__
+#endif // EXCEPTION_H

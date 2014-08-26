@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __ALIGNEDALLOCATOR_H__
-#define __ALIGNEDALLOCATOR_H__
+#ifndef ALIGNEDALLOCATOR_H
+#define ALIGNEDALLOCATOR_H
 
 #include <malloc.h>
 #include "Math.h"
@@ -95,4 +95,4 @@ namespace nut
         }
 	};
 }
-#endif // __ALIGNEDALLOCATOR_H__
+#endif // ALIGNEDALLOCATOR_H

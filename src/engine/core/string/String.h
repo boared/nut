@@ -5,8 +5,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef __STRING_H__
-#define __STRING_H__
+#ifndef STRING_H
+#define STRING_H
 
 #include <sstream>
 
@@ -40,4 +40,4 @@ namespace nut
         }
     };
 }
-#endif // __STRING_H__
+#endif // STRING_H
