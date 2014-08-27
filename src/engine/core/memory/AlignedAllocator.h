@@ -1,6 +1,7 @@
 /** 
  * \file AlignedAllocator.h
- * \brief Class definition for aligned memory allocation.
+ * \brief Class definition for aligned memory allocation. Aligned memory blocks
+ * can be allocated statically or on the heap.
  * 
  * @author: Eder A. Perez.
  */
@@ -15,9 +16,7 @@
 
 namespace nut
 {
-    /// Allocation of aligned memory blocks statically or on the heap ///
-
-    // Static aligned memory allocation
+    // Statically aligned memory allocation
     #if defined(_MSC_VER) // Microsoft Visual C++
         /**
          * \def ALIGNED_ALLOC_DECL(type, identifier, nbytes)

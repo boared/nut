@@ -1,5 +1,5 @@
 /** 
- * \file GLShader.cpp
+ * \file GLProgram.cpp
  * \brief This class create OpenGL programs.
  * 
  * @author: Eder A. Perez.
@@ -7,13 +7,13 @@
 
 #include <iostream>
 #include <fstream>
-#include "GLShader.h"
+#include "GLProgram.h"
 
 
 
 namespace nut
 {
-    GLuint GLShader::load(const std::vector< std::pair< GLenum, std::string> >& shaders, bool isFilePath)
+    GLuint GLProgram::load(const std::vector< std::pair< GLenum, std::string> >& shaders, bool isFilePath)
     {
         // Check parameters
         if (shaders.size() == 0)
@@ -104,7 +104,7 @@ namespace nut
 
 
 
-    bool GLShader::_checkStatus(GLuint obj, std::string& log)
+    bool GLProgram::_checkStatus(GLuint obj, std::string& log)
     {
         GLint status = GL_FALSE, len = 0;
 
