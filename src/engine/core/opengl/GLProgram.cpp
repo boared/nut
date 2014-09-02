@@ -24,6 +24,7 @@ namespace nut
         GLint currentProgram;
         glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
         
+        // Stop program execution before deleting it
         if (currentProgram == static_cast<GLint>(_handle))
         {
             glUseProgram(0);            
@@ -47,9 +48,9 @@ namespace nut
                 return false;
             }
         }
-        
+
         std::string code;
-        
+
         // Load shader from file or...
         if (isFilePath)
         {
@@ -153,7 +154,7 @@ namespace nut
                 variable.size = size;
                 variable.type = type;
                 variable.name = name;
-                variable.isUniform = false;
+                variable.isUniform = true;
 
                 list.push_back(variable);
             }

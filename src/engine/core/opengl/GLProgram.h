@@ -40,33 +40,38 @@ namespace nut
          * GL_FRAGMENT_SHADER.
          * @param isFilePath True if @shader is a path to a shader file. False if @shader
          * contains the shader program itself.
-         * @return True if compilation was successfull. In case of error, fills the log
+         * @return True if compilation was successful. In case of error, fills the log
          * and returns false.
          */
         bool compileShader(const char* shader, GLenum type, bool isFilePath);
         
         /**
-         * Attempt to link the  program.
+         * Attempt to link the program. If no successful call to @compileShader
+         * method was made previously, @link will fail.
          * 
          * @return True if program was successfully linked. In case of error, fills the log
          * and returns false.
          */
         bool link();
-        
+
         /**
-         * Install the program as part of current rendering state by calling glUseProgram.
+         * Install the program as part of current rendering state by calling @glUseProgram.
+         * Only has effect if program was successfully linked.
          */
-        void use()
+        void use() const
         {
-            glUseProgram(_handle);
+            if (_isLinked)
+            {
+                glUseProgram(_handle);
+            }
         }
-        
+
         /**
          * Return the log of the most recent compile or link action.
          * 
          * @return A string containing the log information.
          */
-        const std::string& log()
+        const std::string& log() const
         {
             return _log;
         }
@@ -76,7 +81,7 @@ namespace nut
          * 
          * @return The handle to the OpenGL program.
          */
-        GLuint getHandle()
+        GLuint getHandle() const
         {
             return _handle;
         }
@@ -86,13 +91,13 @@ namespace nut
          * 
          * @return True if program is linked, false otherwise.
          */
-        bool isLinked()
+        bool isLinked() const
         {
             return _isLinked;
         }
         
         /**
-         * Get the location of a uniform variable in this program.
+         * Get the location of an uniform variable in this program.
          * 
          * @param name Uniform variable name.
          * @return The location of the uniform variable if it exists. Otherwise,
@@ -100,9 +105,23 @@ namespace nut
          * starts with the reserved prefix "gl_", or if name is associated with an
          * atomic counter or a named uniform block, then returns -1.
          */
-        GLint getUniform(const char* name)
+        GLint getUniform(const char* name) const
         {
             return glGetUniformLocation(_handle, name);
+        }
+
+        /**
+         * Get the location of an attribute in this program.
+         * 
+         * @param name Attribute name.
+         * @return The location of the attribute if it exists. Otherwise,
+         * if @name does not correspond to an active attribute, if name
+         * starts with the reserved prefix "gl_", or if name is not an active attribute
+         * in the program, then returns -1.
+         */
+        GLint getAttribute(const char* name) const
+        {
+            return glGetAttribLocation(_handle, name);
         }
 
         /**
@@ -110,14 +129,14 @@ namespace nut
          * 
          * @param list A list of active uniforms variables.
          */
-        void getActiveUniforms(std::vector<GLSLVariable>& list);
+        void getActiveUniforms(std::vector<GLSLVariable>& list) const;
         
         /**
          * Return a list containing all active attributes.
          * 
          * @param list A list of active attributes.
          */
-        void getActiveAttributes(std::vector<GLSLVariable>& list);
+        void getActiveAttributes(std::vector<GLSLVariable>& list) const;
 
         /**
          * Specify the value of a uniform variable.
@@ -125,7 +144,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(const char* name, float val);
+        void setUniform(const char* name, float val) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -133,7 +152,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, float val)
+        void setUniform(GLint location, float val) const
         {
             glUniform1f(location, val);
         }
@@ -144,7 +163,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(const char* name, int val);
+        void setUniform(const char* name, int val) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -152,7 +171,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, int val)
+        void setUniform(GLint location, int val) const
         {
             glUniform1i(location, val);
         }
@@ -163,7 +182,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector2D<float>& v);
+        void setUniform(const char* name, const Vector2D<float>& v) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -171,7 +190,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector2D<float>& v)
+        void setUniform(GLint location, const Vector2D<float>& v) const
         {
             glUniform2fv(location, 1, &v.x);
         }
@@ -182,7 +201,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector3D<float>& v);
+        void setUniform(const char* name, const Vector3D<float>& v) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -190,7 +209,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector3D<float>& v)
+        void setUniform(GLint location, const Vector3D<float>& v) const
         {
             glUniform3fv(location, 1, &v.x);
         }
@@ -201,7 +220,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector4D<float>& v);
+        void setUniform(const char* name, const Vector4D<float>& v) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -209,7 +228,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector4D<float>& v)
+        void setUniform(GLint location, const Vector4D<float>& v) const
         {
             glUniform4fv(location, 1, &v.x);
         }
@@ -220,7 +239,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Matrix3x3<float>& m);
+        void setUniform(const char* name, const Matrix3x3<float>& m) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -228,7 +247,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Matrix3x3<float>& m)
+        void setUniform(GLint location, const Matrix3x3<float>& m) const
         {
             glUniformMatrix3fv(location, 1, GL_FALSE, &m[0]);
         }
@@ -239,7 +258,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Matrix4x4<float>& m);
+        void setUniform(const char* name, const Matrix4x4<float>& m) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -247,7 +266,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Matrix4x4<float>& m)
+        void setUniform(GLint location, const Matrix4x4<float>& m) const
         {
             glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
         }
@@ -273,6 +292,9 @@ namespace nut
 
 
 
+    /**
+     * This class stores information about a GLSL attribute or uniform variable.
+     */
     class GLSLVariable
     {
         public:
@@ -282,12 +304,12 @@ namespace nut
         {
         }
         
-        GLuint program;
-        GLint location;
-        GLint size;
-        GLenum type;
-        std::string name;
-        bool isUniform;
+        GLuint program; /**< An OpenGL program where this variable is specified for. */
+        GLint location; /**< The location of the variable. */
+        GLint size; /**< The size of the variable. */
+        GLenum type; /**< The type of the variable. */
+        std::string name; /**< The name of the variable. */
+        bool isUniform; /**< True if it is an uniform variable. False if it is an attribute. */
     };
 }
 
