@@ -9,6 +9,7 @@
 #define GLPROGRAM_H
 
 #include <string>
+#include <vector>
 #include <GL/glew.h>
 #include "Vector2D.h"
 #include "Vector3D.h"
@@ -239,7 +240,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Matrix3x3<float>& m) const;
+        void setUniform(const char* name, Matrix3x3<float>& m) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -247,7 +248,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Matrix3x3<float>& m) const
+        void setUniform(GLint location, Matrix3x3<float>& m) const
         {
             glUniformMatrix3fv(location, 1, GL_FALSE, &m[0]);
         }
@@ -258,7 +259,7 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Matrix4x4<float>& m) const;
+        void setUniform(const char* name, Matrix4x4<float>& m) const;
         
         /**
          * Specify the value of a uniform variable.
@@ -266,7 +267,7 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Matrix4x4<float>& m) const
+        void setUniform(GLint location, Matrix4x4<float>& m) const
         {
             glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
         }

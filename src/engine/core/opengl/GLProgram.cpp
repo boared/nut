@@ -86,7 +86,8 @@ namespace nut
 
         /// 2. Load and compile the shader
         
-        glShaderSource(shaderHandle, 1, &code, NULL);
+        const GLchar* c = code.c_str();
+        glShaderSource(shaderHandle, 1, &c, NULL);
 
         glCompileShader(shaderHandle);
 
@@ -125,7 +126,7 @@ namespace nut
 
 
 
-    void GLProgram::getActiveUniforms(std::vector<GLSLVariable>& list)
+    void GLProgram::getActiveUniforms(std::vector<GLSLVariable>& list) const
     {
         if (_isLinked)
         {
@@ -165,7 +166,7 @@ namespace nut
 
 
 
-    void GLProgram::getActiveAttributes(std::vector<GLSLVariable>& list)
+    void GLProgram::getActiveAttributes(std::vector<GLSLVariable>& list) const
     {
         if (_isLinked)
         {
@@ -205,7 +206,7 @@ namespace nut
 
 
 
-    void GLProgram::setUniform(const char* name, float val)
+    void GLProgram::setUniform(const char* name, float val) const
     {
         GLint loc = getUniform(name);
         
@@ -217,7 +218,7 @@ namespace nut
     
     
     
-    void GLProgram::setUniform(const char* name, int val)
+    void GLProgram::setUniform(const char* name, int val) const
     {
         GLint loc = getUniform(name);
         
@@ -229,7 +230,7 @@ namespace nut
     
     
     
-    void GLProgram::setUniform(const char* name, const Vector2D<float>& v)
+    void GLProgram::setUniform(const char* name, const Vector2D<float>& v) const
     {
         GLint loc = getUniform(name);
         
@@ -241,19 +242,7 @@ namespace nut
 
 
 
-    void GLProgram::setUniform(const char* name, const Vector3D<float>& v)
-    {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
-        {
-            setUniform(loc, v);
-        }
-    }
-
-
-    
-    void GLProgram::setUniform(const char* name, const Vector4D<float>& v)
+    void GLProgram::setUniform(const char* name, const Vector3D<float>& v) const
     {
         GLint loc = getUniform(name);
         
@@ -265,7 +254,19 @@ namespace nut
 
 
     
-    void GLProgram::setUniform(const char* name, const Matrix3x3<float>& m)
+    void GLProgram::setUniform(const char* name, const Vector4D<float>& v) const
+    {
+        GLint loc = getUniform(name);
+        
+        if (loc != -1)
+        {
+            setUniform(loc, v);
+        }
+    }
+
+
+    
+    void GLProgram::setUniform(const char* name, Matrix3x3<float>& m) const
     {
         GLint loc = getUniform(name);
         
@@ -277,7 +278,7 @@ namespace nut
 
 
     
-    void GLProgram::setUniform(const char* name, const Matrix4x4<float>& m)
+    void GLProgram::setUniform(const char* name, Matrix4x4<float>& m) const
     {
         GLint loc = getUniform(name);
 
