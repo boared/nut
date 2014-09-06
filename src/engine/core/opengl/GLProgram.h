@@ -1,6 +1,6 @@
 /** 
  * \file GLProgram.h
- * \brief This class create and handle OpenGL programs.
+ * \brief This class creates and handle OpenGL programs.
  * 
  * @author: Eder A. Perez.
  */
@@ -72,9 +72,9 @@ namespace nut
          * 
          * @return A string containing the log information.
          */
-        const std::string& log() const
+        const char* log() const
         {
-            return _log;
+            return _log.c_str();
         }
         
         /**
@@ -299,18 +299,22 @@ namespace nut
     class GLSLVariable
     {
         public:
-        
-        GLSLVariable() : program(0), location(0), size(0),
-                         type(0), name(""), isUniform(false)
+        GLSLVariable(GLuint program, GLint location, GLint size, GLenum type, const std::string& name, bool isUniform) :
+            program(program),
+            location(location),
+            size(size),
+            type(type),
+            name(name),
+            isUniform(isUniform)
         {
         }
         
-        GLuint program; /**< An OpenGL program where this variable is specified for. */
-        GLint location; /**< The location of the variable. */
-        GLint size; /**< The size of the variable. */
-        GLenum type; /**< The type of the variable. */
-        std::string name; /**< The name of the variable. */
-        bool isUniform; /**< True if it is an uniform variable. False if it is an attribute. */
+        const GLuint program; /**< An OpenGL program where this variable is specified for. */
+        const GLint location; /**< The location of the variable. */
+        const GLint size; /**< The size of the variable. */
+        const GLenum type; /**< The type of the variable. */
+        const std::string name; /**< The name of the variable. */
+        const bool isUniform; /**< True if it is an uniform variable. False if it is an attribute. */
     };
 }
 

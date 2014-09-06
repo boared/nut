@@ -1,11 +1,10 @@
 /** 
  * \file GLProgram.cpp
- * \brief This class create OpenGL programs.
+ * \brief This class creates and handle OpenGL programs.
  * 
  * @author: Eder A. Perez.
  */
 
-#include <iostream>
 #include <fstream>
 #include "GLProgram.h"
 
@@ -149,13 +148,7 @@ namespace nut
                 glGetActiveUniform(_handle, i, maxLength, &written, &size, &type, name);
                 location = glGetUniformLocation(_handle, name);
                 
-                GLSLVariable variable;
-                variable.program = _handle;
-                variable.location = location;
-                variable.size = size;
-                variable.type = type;
-                variable.name = name;
-                variable.isUniform = true;
+                GLSLVariable variable(_handle, location, size, type, name, true);
 
                 list.push_back(variable);
             }
@@ -189,13 +182,7 @@ namespace nut
                 glGetActiveAttrib(_handle, i, maxLength, &written, &size, &type, name);
                 location = glGetAttribLocation(_handle, name);
                 
-                GLSLVariable variable;
-                variable.program = _handle;
-                variable.location = location;
-                variable.size = size;
-                variable.type = type;
-                variable.name = name;
-                variable.isUniform = false;
+                GLSLVariable variable(_handle, location, size, type, name, false);
 
                 list.push_back(variable);
             }
