@@ -1,3 +1,10 @@
+/** 
+ * \file allTests.h
+ * \brief This is an include file for all tests' classes.
+ * 
+ * @author: Eder A. Perez.
+ */
+
 // core->math
 #include "tests/MathTest.cpp"
 #include "tests/Vector2DFloatTest.cpp"
