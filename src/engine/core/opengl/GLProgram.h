@@ -299,7 +299,7 @@ namespace nut
     class GLSLVariable
     {
         public:
-        GLSLVariable(GLuint program, GLint location, GLint size, GLenum type, const std::string& name, bool isUniform) :
+        GLSLVariable(GLuint program, GLint location, GLint size, GLenum type, const char* name, bool isUniform) :
             program(program),
             location(location),
             size(size),
