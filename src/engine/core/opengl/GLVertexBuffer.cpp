@@ -10,16 +10,16 @@
  */
 
 #include "GLVertexBuffer.h"
-#include "IVertexAttribList.h"
+#include "VertexAttribList.h"
 #include "GLTypeConversion.h"
 
 
 
 namespace nut
 {
-    void GLVertexBuffer::set(const IVertexAttribList* vertexAttribList, GLenum usage)
+    void GLVertexBuffer::set(const VertexAttribList& vertexAttribList, GLenum usage)
     {
-        if (vertexAttribList && vertexAttribList->indexCount() > 0)
+        if (vertexAttribList.indexCount() > 0)
         {
             // Generate OpenGL object names if necessary
             if (_vaoName == 0)
@@ -31,9 +31,9 @@ namespace nut
             if (_iboName == 0)
                 glGenBuffers(1, &_iboName);
 
-            _indicesCount = vertexAttribList->indexCount();
+            _indicesCount = vertexAttribList.indexCount();
             
-            int attribCount = vertexAttribList->attribCount();
+            int attribCount = vertexAttribList.attribCount();
 
             _attribSize.clear();
             _attribSize.reserve(attribCount);
@@ -43,11 +43,11 @@ namespace nut
             // the number of components of each attribute.
             if (attribCount > 1)
             {
-                _stride = vertexAttribList->vertexSize();
+                _stride = vertexAttribList.vertexSize();
 
-                for (unsigned int i = 0; i < attribCount; ++i)
+                for (int i = 0; i < attribCount; ++i)
                 {
-                    _attribSize.push_back(vertexAttribList->attribComponentsCount(i));
+                    _attribSize.push_back( std::pair<Type, int>( vertexAttribList.attribType(i), vertexAttribList.attribComponentsCount(i)) );
                 }
             }
             // If there is only one attribute the stride is understood to be zero,
@@ -55,7 +55,7 @@ namespace nut
             else
             {
                 _stride = 0;
-                _attribSize.push_back(vertexAttribList->attribComponentsCount(0));
+                _attribSize.push_back( std::pair<Type, int>( vertexAttribList.attribType(0), vertexAttribList.attribComponentsCount(0)) );
             }
 
             // Get current bound buffer to re-bind it later
@@ -68,11 +68,11 @@ namespace nut
 
             // Initialize and fill vertex buffer object with vertices
             glBindBuffer(GL_ARRAY_BUFFER, _vboName);
-            glBufferData(GL_ARRAY_BUFFER,  vertexAttribList->vertexSize() * vertexAttribList->vertexCount(), vertexAttribList->getBuffer(), usage);
+            glBufferData(GL_ARRAY_BUFFER,  vertexAttribList.vertexSize() * vertexAttribList.vertexCount(), vertexAttribList.getBuffer(), usage);
 
             // Initialize and fill index buffer object with indices
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _iboName);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * _indicesCount, vertexAttribList->getIndices(), usage);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * _indicesCount, vertexAttribList.getIndices(), usage);
 
             // Re-bind last bound object
             glBindVertexArray(boundVAO);

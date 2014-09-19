@@ -16,13 +16,13 @@
 #include <utility>
 #include "GL/glew.h"
 
-class IVertexAttribList;
-enum class Type;
-
 
 
 namespace nut
 {
+    class VertexAttribList;
+    enum class Type;
+
     class GLVertexBuffer
     {
         public:
@@ -67,7 +67,7 @@ namespace nut
          * GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ,
          * GL_DYNAMIC_COPY.
          */
-        void set(const IVertexAttribList* vertexAttribList, GLenum usage);
+        void set(const VertexAttribList& vertexAttribList, GLenum usage);
 
         /**
          * Update the content of vertices. If buffer was not already created and
@@ -146,7 +146,7 @@ namespace nut
                                      Actually it is the size in bytes of a vertex with all its attributes or
                                      zero if there is only one attribute (in this case the attribute is tightly packed in the array). */
 
-        std::vector< std::pair<Type, GLint> > _attribSize; /**< A list containing both the type of a component and the number of
+        std::vector< std::pair<Type, int> > _attribSize; /**< A list containing both the type of a component and the number of
                                                                 components of each vertex attribute (component values must be 1, 2,
                                                                 3, or 4). The list is in the same order as the attributes in a vertex. */
         
