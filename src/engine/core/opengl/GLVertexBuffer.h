@@ -1,71 +1,50 @@
 /** 
- * \file GLModel.h
- * \brief This class loads model data to be processed by OpenGL.
+ * \file GLVertexBuffer.h
+ * \brief This class is responsible to store vertices attributes to be processed
+ * by an OpenGL program.
+ * 
+ * Unless said the other way round, all methods in this class
+ * keep the OpenGL state the same as before they are called.
  * 
  * @author: Eder A. Perez.
  */
 
-#ifndef GLMODEL_H
-#define GLMODEL_H
+#ifndef GLVERTEXBUFFER_H
+#define GLVERTEXBUFFER_H
 
 #include <vector>
+#include <utility>
 #include "GL/glew.h"
+
+class IVertexAttribList;
+enum class Type;
 
 
 
 namespace nut
 {
-    class GLModel
+    class GLVertexBuffer
     {
         public:
-
-        /// Constructors ///
 
         /**
          * Default constructor.
          */
-        GLModel() : _vboName(0),
-                    _iboName(0),
-                    _vaoName(0),
-                    _indicesSize(0),
-                    _stride(0)
-        {
-        }
-
-        /**
-         * Constructor.
-         *
-         * This constructor loads data for vertices and triangle indices in a
-         * OpenGL's buffer. A vertex may contain information about position,
-         * color, normal, texture coordinates and so on.
-         * 
-         * @param indices Indices of triangles.
-         * @param vertices List of model's vertices.
-         * @param size A list containing the number of components of each vertex
-         * attribute (must be 1, 2, 3, or 4).
-         * @param usage Provides a hint as to how the data will be read and written
-         * after allocation. Valid values are GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
-         * GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ,
-         * GL_DYNAMIC_COPY.
-         */
-        GLModel(const std::vector<GLuint>& indices,
-                const std::vector<GLfloat>& vertices,
-                const std::vector<GLint>& size, GLenum usage) :
+        GLVertexBuffer() :
             _vboName(0),
             _iboName(0),
             _vaoName(0),
-            _indicesSize(0),
+            _indicesCount(0),
             _stride(0)
         {
-            setModel(indices, vertices, size, usage);
         }
 
         /**
          * Destructor.
          * 
-         * Release all previously allocated resources.
+         * Delete all previously allocated resources but do not change OpenGL state.
          */
-        ~GLModel()
+        ~GLVertexBuffer()
         {
             glDeleteVertexArrays(1, &_vaoName);
             glDeleteBuffers(1, &_vboName);
@@ -74,47 +53,54 @@ namespace nut
 
 
 
-        /// Methods ///
-
         /**
-         * Create or reset buffers and vertex arrays in OpenGL and fill with data.
+         * Set or reset buffers and vertex arrays in OpenGL and fill with data.
          * 
-         * Necessary buffers and vertex arrays are created once, if buffers/vertex
-         * arrays was previously created and filled, all data will be lost. The
-         * data refers to vertices and triangle indices. A vertex may contain
-         * information about position, color, normal, texture coordinates and so on.
+         * Necessary buffers and vertex arrays objects are created once, if buffers/vertex
+         * arrays was previously created and filled, all buffer's stored data will
+         * be lost and memory will be reallocated. @vertexAttribList must contain
+         * a list of indices, otherwise buffer is not set.
          * 
-         * @param indices Indices of triangles.
-         * @param vertices List of model's vertices.
-         * @param size A list containing the number of components of each vertex
-         * attribute (values must be 1, 2, 3, or 4). The list is in the same order
-         * as the attribute in a vertex.
+         * @param vertexAttribList Object containing all vertices attributes.
          * @param usage Provides a hint as to how the data will be read and written
          * after allocation. Valid values are GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
          * GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ,
          * GL_DYNAMIC_COPY.
          */
-        void setModel(const std::vector<GLuint>& indices,
-                      const std::vector<GLfloat>& vertices,
-                      const std::vector<GLint>& size, GLenum usage);
+        void set(const IVertexAttribList* vertexAttribList, GLenum usage);
 
         /**
-         * Update the content of vertices.
+         * Update the content of vertices. If buffer was not already created and
+         * filled, nothing happens. Furthermore, the vertices in @vertexAttribList
+         * should be of the same type of the current stored vertices. @offset and
+         * @size must define a range lying entirely within the buffer.
          * 
          * @param vertices List containing new vertices values.
-         * @param offset Index of the first vertex to be updated.
+         * @param vertexSize Size in bytes of one vertex.
+         * @param offset Index of the first vertex in the buffer to be updated.
          * @param size Number of vertices to be updated.
          */
-        void updateVertices(const std::vector<GLfloat>* vertices, size_t offset, size_t size);
+        void updateVertices(const void* vertices, size_t vertexSize, size_t offset, size_t size);
 
         /**
-         * Update the content of indices.
+         * Update the content of indices. If buffer was not already created and
+         * filled, nothing happens. @offset and @size must define a range lying
+         * entirely within the buffer.
          * 
          * @param indices List containing new indices values.
-         * @param offset Index of the first index to be updated.
+         * @param offset Index of the first index in the buffer to be updated.
          * @param size Number of indices to be updated.
          */
-        void updateIndices(const std::vector<GLuint>* indices, size_t offset, size_t size);
+        void updateIndices(const unsigned int* indices, size_t offset, size_t size);
+
+        /**
+         * Associate an @attribute of this buffer with a @variable in an OpenGL
+         * program and enables this @variable using @glEnableVertexAttribArray.
+         * 
+         * @param attribute The index of a vertex attribute.
+         * @param variable The index of the generic vertex attribute returned by @glGetAttribLocation.
+         */
+        void setAttrib(GLint attribute, GLint variable);
 
         /**
          * Return the vertex buffer object name.
@@ -146,40 +132,25 @@ namespace nut
             return _iboName;
         }
 
-        /**
-         * Associate an attribute of the vertices array with a variable in an
-         * OpenGL program.
-         * 
-         * @param attribute The index of a vertex attribute.
-         * @param program A valid OpenGL program.
-         * @param name The name of an existing variable in @program.
-         */
-        void setAttrib(GLint attribute, GLuint program, const GLchar* name);
-
-        /**
-         * Draw the model calling @glDrawArrays.
-         * 
-         * @param mode Specifies what kind of primitives are constructed and is one
-         * of GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_TRIANGLES,
-         * GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_PATCHES.
-         */
-        void draw(GLenum mode);
-
 
 
         private:
 
         /// Private attributes ///
 
-        GLuint _vboName;                /**< Buffer object name for vertices properties. */
-        GLuint _iboName;                /**< Buffer object name for vertices indices. */
-        GLuint _vaoName;                /**< Vertex array object name. */
-        GLsizei _indicesSize;           /**< Number of indices. */
-        GLuint _stride;                 /**< Specifies the byte offset between consecutive generic vertex attributes. */
-        std::vector<GLint> _attribSize; /**< A list containing the number of components of each vertex attribute
-                                             (values must be 1, 2, 3, or 4). The list is in the same order
-                                             as the attributes in a vertex. */
+        GLuint _vboName;        /**< Buffer object name for vertices properties. */
+        GLuint _iboName;        /**< Buffer object name for vertices indices. */
+        GLuint _vaoName;        /**< Vertex array object name. */
+        GLsizei _indicesCount;  /**< Number of indices. */
+        GLuint _stride;         /**< Specifies the byte offset between consecutive generic vertex attributes.
+                                     Actually it is the size in bytes of a vertex with all its attributes or
+                                     zero if there is only one attribute (in this case the attribute is tightly packed in the array). */
+
+        std::vector< std::pair<Type, GLint> > _attribSize; /**< A list containing both the type of a component and the number of
+                                                                components of each vertex attribute (component values must be 1, 2,
+                                                                3, or 4). The list is in the same order as the attributes in a vertex. */
+        
     };
 }
 
-#endif // GLMODEL_H
+#endif // GLVERTEXBUFFER_H
