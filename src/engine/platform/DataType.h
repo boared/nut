@@ -44,11 +44,115 @@ namespace nut
 
 
     /**
+     * \brief Enumeration for data type.
+     */
+    enum class Type
+    {
+        CHAR,
+        INT,
+        I8,
+        I16,
+        I32,
+        I64,
+        UNSIGNED_CHAR,
+        UNSIGNED_INT,
+        U8,
+        U16,
+        U32,
+        U64,
+        FLOAT,
+        DOUBLE,
+        IPTR
+    };
+
+
+
+    /**
      * \brief Operations on data types.
      */
     class DataType
     {
         public:
+
+        /**
+         * Get the size in bytes of a type.
+         * 
+         * @param type Input type.
+         * @return Size in bytes of @type.
+         */
+        size_t getSize(Type type)
+        {
+            size_t size = 0;
+
+            switch (Type)
+            {
+                case Type::CHAR:
+                    size = sizeof(char);
+                    break;
+
+                case Type::INT:
+                    size = sizeof(int);
+                    break;
+
+                case Type::I8:
+                    size = sizeof(I8);
+                    break;
+
+                case Type::I16:
+                    size = sizeof(I16);
+                    break;
+
+                case Type::I32:
+                    size = sizeof(I32);
+                    break;
+
+                case Type::I64:
+                    size = sizeof(I64);
+                    break;
+
+                case Type::UNSIGNED_CHAR:
+                    size = sizeof(unsigned char);
+                    break;
+                    break;
+
+                case Type::UNSIGNED_INT:
+                    size = sizeof(unsigned int);
+                    break;
+
+                case Type::U8:
+                    size = sizeof(U8);
+                    break;
+
+                case Type::U16:
+                    size = sizeof(U16);
+                    break;
+
+                case Type::U32:
+                    size = sizeof(U32);
+                    break;
+
+                case Type::U64:
+                    size = sizeof(U64);
+                    break;
+
+                case Type::FLOAT:
+                    size = sizeof(float);
+                    break;
+
+                case Type::DOUBLE:
+                    size = sizeof(double);
+                    break;
+
+                case Type::IPTR:
+                    size = sizeof(IPTR);
+                    break;
+
+                default:
+                    break;
+            }
+            
+            return size;
+        }
 
         /**
          * \brief Swap between 16-bits little-endian and big-endian unsigned integers.
