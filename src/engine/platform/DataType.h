@@ -48,6 +48,7 @@ namespace nut
      */
     enum class Type
     {
+        UNKNOW,
         CHAR,
         INT,
         I8,
@@ -80,11 +81,11 @@ namespace nut
          * @param type Input type.
          * @return Size in bytes of @type.
          */
-        size_t getSize(Type type)
+        static size_t getSize(Type type)
         {
             size_t size = 0;
 
-            switch (Type)
+            switch (type)
             {
                 case Type::CHAR:
                     size = sizeof(char);

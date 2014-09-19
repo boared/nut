@@ -29,7 +29,7 @@ namespace nut
         {
             GLenum glType;
 
-            switch (Type)
+            switch (type)
             {
                 case Type::CHAR:
                     glType = GL_BYTE;
