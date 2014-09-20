@@ -31,7 +31,7 @@ namespace nut
             if (_iboName == 0)
                 glGenBuffers(1, &_iboName);
 
-            _indicesCount = vertexAttribList.indexCount();
+            _indexCount = vertexAttribList.indexCount();
             
             int attribCount = vertexAttribList.attribCount();
 
@@ -72,7 +72,7 @@ namespace nut
 
             // Initialize and fill index buffer object with indices
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _iboName);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * _indicesCount, vertexAttribList.getIndices(), usage);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * _indexCount, vertexAttribList.getIndices(), usage);
 
             // Re-bind last bound object
             glBindVertexArray(boundVAO);

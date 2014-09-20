@@ -164,7 +164,7 @@ namespace nut
                 _indices = new unsigned int[size];
                 _indexCount = size;
 
-                memcpy(_indices, indices, size);
+                memcpy(_indices, indices, sizeof(unsigned int)*size);
             }
         }
         

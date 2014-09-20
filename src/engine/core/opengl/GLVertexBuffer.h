@@ -34,7 +34,7 @@ namespace nut
             _vboName(0),
             _iboName(0),
             _vaoName(0),
-            _indicesCount(0),
+            _indexCount(0),
             _stride(0)
         {
         }
@@ -132,6 +132,16 @@ namespace nut
             return _iboName;
         }
 
+        /**
+         * Return the number of indices in index array.
+         * 
+         * @return The number of indices in index array.
+         */
+        size_t getIndexCount()
+        {
+            return _indexCount;
+        }
+
 
 
         private:
@@ -141,7 +151,7 @@ namespace nut
         GLuint _vboName;        /**< Buffer object name for vertices properties. */
         GLuint _iboName;        /**< Buffer object name for vertices indices. */
         GLuint _vaoName;        /**< Vertex array object name. */
-        GLsizei _indicesCount;  /**< Number of indices. */
+        GLsizei _indexCount;  /**< Number of indices. */
         GLuint _stride;         /**< Specifies the byte offset between consecutive generic vertex attributes.
                                      Actually it is the size in bytes of a vertex with all its attributes or
                                      zero if there is only one attribute (in this case the attribute is tightly packed in the array). */
