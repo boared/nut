@@ -54,27 +54,29 @@ namespace nut
 
 
         /**
-         * Set or reset buffers and vertex arrays in OpenGL and fill with data.
+         * Set or reset OpenGL buffers and fill them with data.
          * 
-         * Necessary buffers and vertex arrays objects are created once, if buffers/vertex
-         * arrays was previously created and filled, all buffer's stored data will
-         * be lost and memory will be reallocated. @vertexAttribList must contain
-         * a list of indices, otherwise buffer is not set.
+         * Necessary buffers objects and vertex array object are created once,
+         * if buffers/vertex arrays was previously created and filled, all
+         * buffer's stored data will be lost and memory will be reallocated.
+         * @vertexAttribList object must contain a list of indices, otherwise
+         * buffer is not set.
          * 
-         * @param vertexAttribList Object containing all vertices attributes. This
-         * object is not stored internally.
+         * @param vertexAttribList Object containing all vertices attributes.
+         * This object is not stored internally and can be released after this
+         * method call.
          * @param usage Provides a hint as to how the data will be read and written
-         * after allocation. Valid values are GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
-         * GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ,
-         * GL_DYNAMIC_COPY.
+         * after allocation. Valid values are GL_STREAM_DRAW, GL_STREAM_READ,
+         * GL_STREAM_COPY, GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW,
+         * GL_DYNAMIC_READ, GL_DYNAMIC_COPY.
          */
         void set(const VertexAttribList& vertexAttribList, GLenum usage);
 
         /**
          * Update the content of vertices. If buffer was not already created and
          * filled, nothing happens. Furthermore, the vertices in @vertexAttribList
-         * should be of the same type of the current stored vertices. @offset and
-         * @size must define a range lying entirely within the buffer.
+         * should be of the same type of the current stored vertices and @offset
+         * and @size must define a range lying entirely within the buffer.
          * 
          * @param vertices List containing new vertices values.
          * @param vertexSize Size in bytes of one vertex.
@@ -95,11 +97,11 @@ namespace nut
         void updateIndices(const unsigned int* indices, size_t offset, size_t size);
 
         /**
-         * Associate an @attribute of this buffer with a @variable in an OpenGL
-         * program and enables this @variable using @glEnableVertexAttribArray.
+         * Associate an @attribute of this vertex buffer with a @variable in an
+         * OpenGL program and enables this @variable using @glEnableVertexAttribArray.
          * 
          * @param attribute The index of a vertex attribute.
-         * @param variable The index of the generic vertex attribute returned by @glGetAttribLocation.
+         * @param variable A valid index of the generic vertex attribute returned by @glGetAttribLocation.
          */
         void setAttrib(GLint attribute, GLint variable);
 
@@ -134,9 +136,9 @@ namespace nut
         }
 
         /**
-         * Return the number of indices in index array.
+         * Return the size of the index array.
          * 
-         * @return The number of indices in index array.
+         * @return The number of elements in index array.
          */
         size_t getIndexCount()
         {
@@ -152,14 +154,14 @@ namespace nut
         GLuint _vboName;        /**< Buffer object name for vertices properties. */
         GLuint _iboName;        /**< Buffer object name for vertices indices. */
         GLuint _vaoName;        /**< Vertex array object name. */
-        GLsizei _indexCount;  /**< Number of indices. */
+        GLsizei _indexCount;    /**< Number of indices. */
         GLuint _stride;         /**< Specifies the byte offset between consecutive generic vertex attributes.
                                      Actually it is the size in bytes of a vertex with all its attributes or
                                      zero if there is only one attribute (in this case the attribute is tightly packed in the array). */
 
         std::vector< std::pair<Type, int> > _attribSize; /**< A list containing both the type of a component and the number of
-                                                                components of each vertex attribute (component values must be 1, 2,
-                                                                3, or 4). The list is in the same order as the attributes in a vertex. */
+                                                              components of each vertex attribute (component values must be 1, 2,
+                                                              3, or 4). The list is in the same order as the attributes in a vertex. */
         
     };
 }

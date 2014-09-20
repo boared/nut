@@ -1,5 +1,5 @@
 /** 
- * \file GLVertexBuffer.h
+ * \file GLVertexBuffer.cpp
  * \brief This class is responsible to store vertices attributes to be processed
  * by an OpenGL program.
  * 

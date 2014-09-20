@@ -196,7 +196,7 @@ namespace nut
         size_t _bufferSize;         /**< Size of @_buffer in bytes. */
         unsigned int* _indices;     /**< Store the triangulation. */
         unsigned int _indexCount;   /**< Number of elements in @_indices. */
-        unsigned int _vertexCount;  /**< Store the total amount of vertices. */
+        unsigned int _vertexCount;  /**< The total amount of vertices in the buffer. */
         size_t _vertexSize;         /**< Size of a single vertex in bytes. */
         std::vector< std::pair<Type, int> > _attributesInfo; /**< Information about added attributes (type of components and number of them). */
     };

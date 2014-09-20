@@ -23,11 +23,12 @@ namespace nut
          * Convert an enum class Type to a GLenum type.
          * 
          * @param type An enum class Type.
-         * @return A corresponding GLenum. Default is GL_FLOAT.
+         * @return A corresponding GLenum. If there's no corresponding type,
+         * returns GL_FALSE.
          */
         static GLenum typeToGLenum(Type type)
         {
-            GLenum glType;
+            GLenum glType = GL_FALSE;
 
             switch (type)
             {
@@ -81,7 +82,6 @@ namespace nut
                     break;
 
                 default:
-                    glType = GL_FLOAT;
                     break;
             }
 
