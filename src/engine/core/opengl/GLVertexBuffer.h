@@ -61,7 +61,8 @@ namespace nut
          * be lost and memory will be reallocated. @vertexAttribList must contain
          * a list of indices, otherwise buffer is not set.
          * 
-         * @param vertexAttribList Object containing all vertices attributes.
+         * @param vertexAttribList Object containing all vertices attributes. This
+         * object is not stored internally.
          * @param usage Provides a hint as to how the data will be read and written
          * after allocation. Valid values are GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
          * GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ,
