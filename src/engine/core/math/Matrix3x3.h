@@ -11,6 +11,7 @@
 #include <cstring>
 #include <cmath>
 #include "Vector3D.h"
+#include "GLMatrix.h"
 
 
 
@@ -69,7 +70,7 @@ namespace nut
         /**
          * Constructor.
          * 
-         * Instatiates a matrix out of scalar values.
+         * Instantiates a matrix out of scalar values.
          * 
          * @param ann A value at position nn of matrix.
          */
@@ -80,6 +81,20 @@ namespace nut
             _m[0] = a11; _m[3] = a12; _m[6] = a13;
             _m[1] = a21; _m[4] = a22; _m[7] = a23;
             _m[2] = a31; _m[5] = a32; _m[8] = a33;
+        }
+
+        /**
+         * Constructor.
+         * 
+         * Instantiates a matrix out of a sub-matrix of @GLMatrix.
+         * 
+         * @param m A @GLMatrix. The resulting matrix is the top-left sub-matrix of @m.
+         */
+        Matrix3x3(GLMatrix<T> m)
+        {
+            _m[0] = m[0]; _m[3] = m[4]; _m[6] = m[ 8];
+            _m[1] = m[1]; _m[4] = m[5]; _m[7] = m[ 9];
+            _m[2] = m[2]; _m[5] = m[6]; _m[8] = m[10];
         }
 
 
