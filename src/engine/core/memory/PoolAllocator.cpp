@@ -30,7 +30,7 @@ namespace nut
             delete[] _buffer;
 
         // Check if alignment is zero or a power of two
-        if ( alignment == 0 || Math::isPowerOf2(alignment) )
+        if ( alignment == 0 || Math<int>::isPowerOf2(alignment) )
         {
             // Adjust block size to hold pointers to next and previous
             // free memory blocks and to be a multiple of alignment

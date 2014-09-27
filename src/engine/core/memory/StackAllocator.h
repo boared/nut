@@ -9,6 +9,7 @@
 #define STACKALLOCATOR_H
 
 #include <mutex>
+#include "DataType.h"
 
 
 

@@ -9,6 +9,7 @@
 #define DOUBLESTACKALLOCATOR_H
 
 #include <mutex>
+#include "DataType.h"
 
 
 

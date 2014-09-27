@@ -9,6 +9,7 @@
 #define POOLALLOCATOR_H
 
 #include <mutex>
+#include "DataType.h"
 
 
 
