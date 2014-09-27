@@ -268,6 +268,15 @@ namespace nut
             return r;
 		}
 
+        /**
+         * \brief .
+         * 
+         */
+		const T operator [] (int pos) const
+        {
+            return _q[pos];
+        }
+
 
 
 		private:
