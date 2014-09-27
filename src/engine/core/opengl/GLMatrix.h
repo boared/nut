@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include <cmath>
+#include "QuaternionRotation.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
 
@@ -203,6 +204,23 @@ namespace nut
          * @param rz Rotation angle in Z-axis.
          */
         void setRotation(T rx, T ry, T rz);
+        
+        /**
+         * Set a rotation matrix from a quaternion.
+         * 
+         * @param q A quaternion. 
+         */
+        void setRotation(const QuaternionRotation<T>& q);
+        
+        /**
+         * Set a rotation matrix from an angle-axis.
+         * 
+         * @param x Axis x coordinate.
+         * @param y Axis y coordinate.
+         * @param z Axis z coordinate.
+         * @param angle Rotation angle in radians.
+         */
+        void setRotation(T x, T y, T z, T angle);
 
         /**
          * Set a scale matrix.
@@ -244,6 +262,23 @@ namespace nut
          * @param rz Rotation angle in Z-axis.
          */
         void rotate(T rx, T ry, T rz);
+        
+        /**
+         * Append a rotation matrix (from a quaternion) to the current matrix.
+         * 
+         * @param q A quaternion. 
+         */
+        void rotate(const QuaternionRotation<T>& q);
+        
+        /**
+         * Append a rotation matrix (from axis-angle) to the current matrix.
+         * 
+         * @param x Axis x coordinate.
+         * @param y Axis y coordinate.
+         * @param z Axis z coordinate.
+         * @param angle Rotation angle in radians.
+         */
+        void rotate(T x, T y, T z, T angle);
 
         /**
          * Append a scale matrix to the current matrix.
@@ -786,6 +821,76 @@ namespace nut
 
 
 
+    template<typename T> void GLMatrix<T>::setRotation(const QuaternionRotation<T>& q)
+    {
+        T x = q[0];
+        T y = q[1];
+        T z = q[2];
+        T w = q[3];
+
+        _m[ 0] = T(1.0) - T(2.0)*y*y - T(2.0)*z*z; 
+        _m[ 1] = T(2.0)*x*y - T(2.0)*w*z;
+        _m[ 2] = T(2.0)*x*z + T(2.0)*w*y;
+        _m[ 3] = T(0.0);
+
+        _m[ 4] = T(2.0)*x*y + T(2.0)*w*z;
+        _m[ 5] = T(1.0) - T(2.0)*x*x - T(2.0)*z*z;
+        _m[ 6] = T(2.0)*y*z - T(2.0)*w*x;
+        _m[ 7] = T(0.0);
+
+        _m[ 8] = T(2.0)*x*z - T(2.0)*w*y;
+        _m[ 9] = T(2.0)*y*z + T(2.0)*w*x;
+        _m[10] = T(1.0) - T(2.0)*x*x - T(2.0)*y*y;
+        _m[11] = T(0.0);
+        
+        _m[12] = T(0.0);
+        _m[13] = T(0.0);
+        _m[14] = T(0.0);
+        _m[15] = T(1.0);
+    }
+
+
+
+    template<typename T> void GLMatrix<T>::setRotation(T x, T y, T z, T angle)
+    {
+        T cosA = cos(-angle);
+        T sinA = sin(-angle);
+        
+        // Normalize vector
+        T sqrLength = x * x + y * y + z * z;
+                
+        if ( Math<T>::abs( T(1.0) - sqrLength) > Math<T>::EPSILON)
+        {
+            T rLength = T(1.0) / std::sqrt(sqrLength);
+
+            x *= rLength;
+            y *= rLength;
+            z *= rLength;
+        }
+
+        _m[ 0] = cosA + x*x*(1 - cosA);
+        _m[ 1] = y*x*(1 - cosA) + z*sinA;
+        _m[ 2] = z*x*(1 - cosA) - y*sinA;
+        _m[ 3] = T(0.0);
+
+        _m[ 4] = x*y*(1 - cosA) - z*sinA;
+        _m[ 5] = cosA + y*y*(1 - cosA);
+        _m[ 6] = z*y*(1 - cosA) + x*sinA;
+        _m[ 7] = T(0.0);
+
+        _m[ 8] = x*z*(1 - cosA) + y*sinA;
+        _m[ 9] = y*z*(1 - cosA) - x*sinA;
+        _m[10] = cosA + z*z*(1 - cosA);
+        _m[11] = T(0.0);
+        
+        _m[12] = T(0.0);
+        _m[13] = T(0.0);
+        _m[14] = T(0.0);
+        _m[15] = T(1.0);
+    }
+
+
+
     template<typename T> void GLMatrix<T>::rotate(T rx, T ry, T rz)
     {
         T r[16];
@@ -819,6 +924,26 @@ namespace nut
         r[15] = T(1.0);
 
         memcpy(_m, r, sizeof(T) * 16);
+    }
+
+
+
+    template<typename T> void GLMatrix<T>::rotate(const QuaternionRotation<T>& q)
+    {
+        GLMatrix m;
+        m.setRotation(q);
+        
+        *this = m * (*this);
+    }
+
+
+
+    template<typename T> void GLMatrix<T>::rotate(T x, T y, T z, T angle)
+    {
+        GLMatrix m;
+        m.setRotation(x, y, z, angle);
+        
+        *this = m * (*this);
     }
 
 
