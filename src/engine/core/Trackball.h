@@ -1,6 +1,9 @@
 /** 
  * \file Trackball.h
- * \brief Implementation of a virtual trackball based on Shoemake and Holroyd methods.
+ * \brief This class implements a virtual trackball.
+ * 
+ * A virtual trackball is a device for controlling 3D rotations by moving a 2D mouse.
+ * This implentation is based on Shoemake's arcball and Holroyd method.
  * 
  * @author: Eder A. Perez.
  */
@@ -9,6 +12,7 @@
 #define TRACKBALL_H
 
 #include <cmath>
+#include "QuaternionRotation.h"
 #include "Math.h"
 #include "Vector3D.h"
 #include "GLMatrix.h"
@@ -78,7 +82,7 @@ namespace nut
         void drag(float x, float y)
         {
             _setProjectedPoint(_Pc, x, y);
-            
+
             // Update rotation matrix
             Vector3D<float> u = _Pa.cross(_Pc);
             float theta = atan( u.length() / (_Pa * _Pc) );
@@ -121,18 +125,18 @@ namespace nut
          */
         void _setProjectedPoint(Vector3D<float>& p, float x, float y)
         {
-            float r = std::sqrt(x*x + y*y);
+            float r = std::sqrt(x * x + y * y);
 
             // Compute projected point using Holroyd's method
             p.x = x;
             p.y = y;
             if (r <= (_radius / Math<float>::SQRT_2))
             {
-                p.z = std::sqrt(_radius*_radius - (x*x + y*y));
+                p.z = std::sqrt(_radius * _radius - (x * x + y * y));
             }
             else
             {
-                p.z = (_radius * _radius) / (2.0f*r);
+                p.z = (_radius * _radius) / (2.0f * r);
             }
         }
     };
