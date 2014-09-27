@@ -213,7 +213,7 @@ namespace nut
         void setRotation(const QuaternionRotation<T>& q);
         
         /**
-         * Set a rotation matrix from an angle-axis.
+         * Set a rotation matrix from an axis-angle.
          * 
          * @param x Axis x coordinate.
          * @param y Axis y coordinate.
@@ -853,8 +853,8 @@ namespace nut
 
     template<typename T> void GLMatrix<T>::setRotation(T x, T y, T z, T angle)
     {
-        T cosA = cos(-angle);
-        T sinA = sin(-angle);
+        T cosA = cos(angle);
+        T sinA = sin(angle);
         
         // Normalize vector
         T sqrLength = x * x + y * y + z * z;
