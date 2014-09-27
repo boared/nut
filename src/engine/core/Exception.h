@@ -50,10 +50,10 @@ namespace nut
         #endif
 
         /**
-         * \def ASSERT(expr)
+         * \def NUT_ASSERT(expr)
          * \brief Check the expression and fail if it is false.
          */
-        #define ASSERT(expr) \
+        #define NUT_ASSERT(expr) \
                 if (expr) { } \
                 else \
                 { \
@@ -61,7 +61,7 @@ namespace nut
                     DEBUG_BREAK(); \
                 }
     #else
-        #define ASSERT(exp)	// Evaluate to nothing
+        #define NUT_ASSERT(exp)	// Evaluate to nothing
     #endif
 
 
