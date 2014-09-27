@@ -23,6 +23,7 @@ namespace nut
         static const T HALF_PI;       /**< Represents an approximation of pi / 2. */
         static const T _180_OVER_PI;  /**< Represents an approximation of 180 / pi. */
         static const T PI_OVER_180;   /**< Represents an approximation of pi / 180. */
+        static const T SQRT_2;        /**< Represents an approximation of sqrt(2). */
 
 
 
@@ -103,5 +104,6 @@ namespace nut
     template<typename T> const T Math<T>::HALF_PI       = T(1.5707963267948966192313216916398);
     template<typename T> const T Math<T>::_180_OVER_PI  = T(57.295779513082320876798154814105);
     template<typename T> const T Math<T>::PI_OVER_180   = T(0.01745329251994329576923690768489);
+    template<typename T> const T Math<T>::SQRT_2   = T(1.41421356237309504880168872420969807856967187537694807317667973799);
 }
 #endif // MATH_H
