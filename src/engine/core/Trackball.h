@@ -12,7 +12,6 @@
 #define TRACKBALL_H
 
 #include <cmath>
-#include "QuaternionRotation.h"
 #include "Math.h"
 #include "Vector3D.h"
 #include "GLMatrix.h"
