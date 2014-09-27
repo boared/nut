@@ -277,6 +277,18 @@ namespace nut
 
 
 
+    void GLProgram::setUniform(const char* name, GLMatrix<float>& m) const
+    {
+        GLint loc = getUniform(name);
+
+        if (loc != -1)
+        {
+            setUniform(loc, m);
+        }
+    }
+
+
+
     bool GLProgram::_checkStatus(GLuint obj)
     {
         GLint status = GL_FALSE, len = 0;

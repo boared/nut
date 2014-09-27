@@ -272,6 +272,25 @@ namespace nut
             glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
         }
 
+        /**
+         * Specify the value of a uniform variable.
+         * 
+         * @param name Uniform variable name.
+         * @param m New value to be used for the variable @name.
+         */
+        void setUniform(const char* name, GLMatrix<float>& m) const;
+        
+        /**
+         * Specify the value of a uniform variable.
+         * 
+         * @param location Uniform variable location.
+         * @param val New value to be used for the variable @name.
+         */
+        void setUniform(GLint location, GLMatrix<float>& m) const
+        {
+            glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
+        }
+
 
 
         private:
