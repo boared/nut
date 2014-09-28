@@ -16,7 +16,7 @@
 
 namespace nut
 {
-    // Statically aligned memory allocation
+    // This define is used for aligned memory declaration.
     #if defined(_MSC_VER) // Microsoft Visual C++
         /**
          * \def ALIGNED_ALLOC_DECL(type, identifier, nbytes)
@@ -47,22 +47,25 @@ namespace nut
     /**
      * \brief AlignedAllocator.
      * 
-     * This static class is used to dynamically allocate and de-allocate aligned blocks of memory.    
+     * This static class is used to dynamically allocate and de-allocate aligned
+     * blocks of memory.
      */
     class AlignedAllocator
     {
         public:
 
         /**
-         * \brief Allocate a block of memory of size @size and aligned @alignment bytes.
+         * \brief Allocate a block of memory of size @size and aligned @alignment
+         * bytes.
          * 
-         * The allocated block MUST be freed by @AlignedAllocator::free().
+         * It is highly recommended that allocated block through this method be
+         * freed by @AlignedAllocator::free().
          * 
          * @param size Block size in bytes.
          * @param alignment Memory alignment (it must be a power of two).
          * @return Returns an aligned memory block in case of success. Otherwise, returns a null pointer.
          */
-        static void* alignedAlloc(size_t size, size_t alignment)
+        template<class C> static C* alloc(size_t size, size_t alignment)
         {
             void* m = 0;
 
@@ -76,7 +79,7 @@ namespace nut
                 #endif
             }
 
-            return m;
+            return static_cast<C*>(m);
         }
 
         /**
