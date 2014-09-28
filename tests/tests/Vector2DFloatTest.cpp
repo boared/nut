@@ -180,17 +180,17 @@ TEST_F(Vector2DFloatTest, orientedArea)
     Vector2D<FLOAT> u1(0, 0), u2(1, 1), u3(-1.0f, 0.0f), u4(234.9898f, -1.22343f),
                     u5(-2345.777f, -7878.887f), u6(1, 0), u7(0, 1);
 
-    EXPECT_NEAR(0.0f, u1.oriArea(u2), 1e-10);
-    EXPECT_NEAR(0.0f, u2.oriArea(u1), 1e-10);
+    EXPECT_NEAR(0.0f, u1.orientedArea(u2), 1e-10);
+    EXPECT_NEAR(0.0f, u2.orientedArea(u1), 1e-10);
 
-    EXPECT_NEAR(0.0f, u3.oriArea(u6), 1e-10);
-    EXPECT_NEAR(0.0f, u6.oriArea(u3), 1e-10);
+    EXPECT_NEAR(0.0f, u3.orientedArea(u6), 1e-10);
+    EXPECT_NEAR(0.0f, u6.orientedArea(u3), 1e-10);
 
-    EXPECT_NEAR(-1.0f, u3.oriArea(u7), 1e-10);
-    EXPECT_NEAR(1.0f, u7.oriArea(u3), 1e-10);
+    EXPECT_NEAR(-1.0f, u3.orientedArea(u7), 1e-10);
+    EXPECT_NEAR(1.0f, u7.orientedArea(u3), 1e-10);
 
-    EXPECT_NEAR(1.0f, u6.oriArea(u7), 1e-10);
-    EXPECT_NEAR(-1.0f, u7.oriArea(u6), 1e-10);
+    EXPECT_NEAR(1.0f, u6.orientedArea(u7), 1e-10);
+    EXPECT_NEAR(-1.0f, u7.orientedArea(u6), 1e-10);
 }
 
 

@@ -117,12 +117,14 @@ namespace nut
         }
 
         /**
-         * Computes the oriented area of a parallelogram which sides are @this and @v.
+         * Computes the oriented area of a parallelogram which sides are @this
+         * and @v.
          * 
-         * This computation is a kind of cross product in 2-dimensional vectors. The
-         * result is a signed scalar representing the "z" coordinate, which is the
-         * area of a parallelogram build by the two vectors. The sign of the area
-         * follows the right-hand rule as the following example.
+         * This computation is like a cross product in a 3-dimensional vector in
+         * which z-coordinate is zero. The result is a signed scalar representing
+         * the "z" coordinate which actually is the area of a parallelogram build
+         * by the two vectors. The sign of the area follows the right-hand rule
+         * as the following example.
          * 
          * Example:
          * 
@@ -135,7 +137,7 @@ namespace nut
          * @param v A 2-dimensional vector.
          * @return The oriented area value.
          */
-        T oriArea(const Vector2D& v) const
+        T orientedArea(const Vector2D& v) const
         {
             return (x * v.y - y * v.x);
         }
