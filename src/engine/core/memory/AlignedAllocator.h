@@ -9,7 +9,7 @@
 #ifndef ALIGNEDALLOCATOR_H
 #define ALIGNEDALLOCATOR_H
 
-#include <malloc.h>
+#include <cstdlib>
 #include "Math.h"
 
 
@@ -58,7 +58,7 @@ namespace nut
          * \brief Allocate a block of memory of size @size and aligned @alignment
          * bytes.
          * 
-         * It is highly recommended that allocated block through this method be
+         * It is highly recommended that all allocated block through this method be
          * freed by @AlignedAllocator::free().
          * 
          * @param size Block size in bytes.
@@ -67,32 +67,32 @@ namespace nut
          */
         template<class C> static C* alloc(size_t size, size_t alignment)
         {
-            void* m = 0;
+            void* block = 0;
 
             // Must be a power of two
             if (Math<size_t>::isPowerOf2(alignment))
             {
                 #if defined(_MSC_VER) // Microsoft Visual C++
-                    m = _aligned_malloc(size, alignment);
+                    block = _aligned_malloc(size, alignment);
                 #elif defined (__GNUC__) // GNU C/C++ Compiler
-                    posix_memalign(&m, alignment, size);
+                    posix_memalign(&block, alignment, size);
                 #endif
             }
 
-            return static_cast<C*>(m);
+            return static_cast<C*>(block);
         }
 
         /**
          * \brief Free a block of memory allocated by @AlignedAllocator::alignedAlloc().
          * 
-         * @param m Memory block to be freed.
+         * @param block Memory block to be freed.
          */
-        static void free(void* m)
+        static void release(void* block)
         {
             #if defined(_MSC_VER) // Microsoft Visual C++
                 _aligned_free(m);
             #elif defined (__GNUC__) // GNU C/C++ Compiler
-                free(m);
+                free(block);
             #endif
         }
 	};
