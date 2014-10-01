@@ -290,6 +290,34 @@ namespace nut
         {
             glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
         }
+        
+        /**
+         * Activate a subroutine.
+         * 
+         * @param name A subroutine name.
+         * @param shaderType A GLenum that must be one of GL_VERTEX_SHADER,
+         * GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER,
+         * or GL_FRAGMENT_SHADER.
+         */
+        void setUniformSubroutine(const char* name, GLenum shaderType)
+        {
+            GLuint index = glGetSubroutineIndex(_handle, shaderType, name);
+            
+            glUniformSubroutinesuiv(shaderType, 1, &index);
+        }
+        
+        /**
+         * Activate a subroutine.
+         * 
+         * @param index Uniform variable index.
+         * @param shaderType A GLenum that must be one of GL_COMPUTE_SHADER,
+         * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
+         * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
+         */
+        void setUniformSubroutine(GLuint index, GLenum shaderType)
+        {
+            glUniformSubroutinesuiv(shaderType, 1, &index);
+        }
 
 
 
