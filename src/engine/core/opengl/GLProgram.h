@@ -17,6 +17,7 @@
 #include "Matrix3x3.h"
 #include "Matrix4x4.h"
 #include "GLSLVariable.h"
+#include "GLSLSubroutineUniform.h"
 
 
 
@@ -139,12 +140,41 @@ namespace nut
         void getActiveAttributes(std::vector<GLSLVariable>& list) const;
 
         /**
+         * Return a list containing all active subroutine function's names.
+         * 
+         * @param list A list of active subroutine function's names. A subroutine
+         * function index correspond to its index in the list.
+         * @param shaderType A GLenum that must be one of GL_COMPUTE_SHADER,
+         * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
+         * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
+         */
+        void getActiveSubroutines(std::vector<std::string>& list, GLenum shaderType) const;
+
+        /**
+         * Return a list containing all active subroutine uniforms.
+         * 
+         * @param list A list of active subroutine uniforms.
+         * @param shaderType A GLenum that must be one of GL_COMPUTE_SHADER,
+         * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
+         * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
+         */
+        void getActiveSubroutineUniforms(std::vector<GLSLSubroutineUniform>& list, GLenum shaderType) const;
+
+        /**
          * Specify the value of a uniform variable.
          * 
          * @param name Uniform variable name.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(const char* name, float val) const;
+        void setUniform(const char* name, float val) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, val);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -163,7 +193,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(const char* name, int val) const;
+        void setUniform(const char* name, int val) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, val);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -182,7 +220,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector2D<float>& v) const;
+        void setUniform(const char* name, const Vector2D<float>& v) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, v);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -201,7 +247,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector3D<float>& v) const;
+        void setUniform(const char* name, const Vector3D<float>& v) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, v);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -220,7 +274,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param v New value to be used for the variable @name.
          */
-        void setUniform(const char* name, const Vector4D<float>& v) const;
+        void setUniform(const char* name, const Vector4D<float>& v) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, v);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -239,7 +301,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, Matrix3x3<float>& m) const;
+        void setUniform(const char* name, Matrix3x3<float>& m) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, m);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -258,7 +328,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, Matrix4x4<float>& m) const;
+        void setUniform(const char* name, Matrix4x4<float>& m) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, m);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -277,7 +355,15 @@ namespace nut
          * @param name Uniform variable name.
          * @param m New value to be used for the variable @name.
          */
-        void setUniform(const char* name, GLMatrix<float>& m) const;
+        void setUniform(const char* name, GLMatrix<float>& m) const
+        {
+            GLint loc = getUniform(name);
+
+            if (loc != -1)
+            {
+                setUniform(loc, m);
+            }
+        }
         
         /**
          * Specify the value of a uniform variable.
@@ -291,31 +377,27 @@ namespace nut
         }
         
         /**
-         * Activate a subroutine.
+         * Activate all uniform subroutines of a shader stage at once.
          * 
-         * @param name A subroutine name.
-         * @param shaderType A GLenum that must be one of GL_VERTEX_SHADER,
-         * GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER,
-         * or GL_FRAGMENT_SHADER.
-         */
-        void setUniformSubroutine(const char* name, GLenum shaderType)
-        {
-            GLuint index = glGetSubroutineIndex(_handle, shaderType, name);
-            
-            glUniformSubroutinesuiv(shaderType, 1, &index);
-        }
-        
-        /**
-         * Activate a subroutine.
-         * 
-         * @param index Uniform variable index.
          * @param shaderType A GLenum that must be one of GL_COMPUTE_SHADER,
          * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
          * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
+         * @param count Number of elements of @indices. It must be the same value
+         * returned by glGetProgramStageiv with GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS
+         * parameter
+         * @param indices A list of subroutine function's indices where the i-th
+         * element corresponds to a subroutine function index being assigned to the subroutine
+         * uniform location i.
          */
-        void setUniformSubroutine(GLuint index, GLenum shaderType)
+        void setSubroutineUniforms(GLenum shaderType, GLint count, const GLuint* indices)
         {
-            glUniformSubroutinesuiv(shaderType, 1, &index);
+            GLint subroutineUniformLocationsCount;
+            glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineUniformLocationsCount);
+            
+            if (count == subroutineUniformLocationsCount)
+            {
+                glUniformSubroutinesuiv(shaderType, count, indices);
+            }
         }
 
 

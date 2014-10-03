@@ -12,7 +12,7 @@
 
 namespace nut
 {
-    GLProgram::GLProgram() : _handle(0), _isLinked(false), _log("")
+    GLProgram::GLProgram() : _handle(0), _isLinked(false)
     {
     }
 
@@ -76,7 +76,6 @@ namespace nut
 
         GLuint shaderHandle = glCreateShader(type);
 
-        // Check for error
         if (shaderHandle == 0)
         {
             _log = "nut::GLProgram error: glCreateShader failed.";
@@ -90,7 +89,6 @@ namespace nut
 
         glCompileShader(shaderHandle);
 
-        // Check compilation status and set log in case of error
         if (!_checkStatus(shaderHandle))
         {
             return false;
@@ -129,12 +127,12 @@ namespace nut
     {
         if (_isLinked)
         {
-            GLint nUniforms, maxLength;
+            GLint count, maxLength;
 
             /// 1. Retrieve the maximum length of the names of all the active uniforms
             /// and the number of active uniforms
             glGetProgramiv(_handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength);
-            glGetProgramiv(_handle, GL_ACTIVE_UNIFORMS, &nUniforms);
+            glGetProgramiv(_handle, GL_ACTIVE_UNIFORMS, &count);
 
             /// 2. Allocate space to store each uniform variable's name
             GLchar* name = new GLchar[maxLength];
@@ -143,12 +141,20 @@ namespace nut
             GLint size, location;
             GLsizei written;
             GLenum type;
-            for (GLint i = 0; i < nUniforms; ++i)
+            
+            list.reserve(count);
+            for (GLint i = 0; i < count; ++i)
             {
                 glGetActiveUniform(_handle, i, maxLength, &written, &size, &type, name);
                 location = glGetUniformLocation(_handle, name);
                 
-                GLSLVariable variable(_handle, location, size, type, name, true);
+                GLSLVariable variable;
+                variable.program = _handle;
+                variable.location = location;
+                variable.name = name;
+                variable.size = size;
+                variable.type = type;
+                variable.isUniform = true;
 
                 list.push_back(variable);
             }
@@ -163,12 +169,12 @@ namespace nut
     {
         if (_isLinked)
         {
-            GLint nAttribs, maxLength;
+            GLint count, maxLength;
 
             /// 1. Retrieve the maximum length of the names of all the active attributes
             /// and the number of active attributes
             glGetProgramiv(_handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
-            glGetProgramiv(_handle, GL_ACTIVE_ATTRIBUTES, &nAttribs);
+            glGetProgramiv(_handle, GL_ACTIVE_ATTRIBUTES, &count);
 
             /// 2. Allocate space to store each attribute's name
             GLchar* name = new GLchar[maxLength];
@@ -177,12 +183,20 @@ namespace nut
             GLint size, location;
             GLsizei written;
             GLenum type;
-            for (GLint i = 0; i < nAttribs; ++i)
+            
+            list.reserve(count);
+            for (GLint i = 0; i < count; ++i)
             {
                 glGetActiveAttrib(_handle, i, maxLength, &written, &size, &type, name);
                 location = glGetAttribLocation(_handle, name);
-                
-                GLSLVariable variable(_handle, location, size, type, name, false);
+
+                GLSLVariable variable;
+                variable.program = _handle;
+                variable.location = location;
+                variable.name = name;
+                variable.size = size;
+                variable.type = type;
+                variable.isUniform = false;
 
                 list.push_back(variable);
             }
@@ -193,97 +207,78 @@ namespace nut
 
 
 
-    void GLProgram::setUniform(const char* name, float val) const
+    void GLProgram::getActiveSubroutines(std::vector<std::string>& list, GLenum shaderType) const
     {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
+        GLint count;
+        glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINES, &count);
+
+        GLint biggerNameLength;
+        glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_MAX_LENGTH, &biggerNameLength);
+
+        if (count != GL_INVALID_ENUM && biggerNameLength != GL_INVALID_ENUM)
         {
-            setUniform(loc, val);
-        }
-    }
-    
-    
-    
-    void GLProgram::setUniform(const char* name, int val) const
-    {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
-        {
-            setUniform(loc, val);
-        }
-    }
-    
-    
-    
-    void GLProgram::setUniform(const char* name, const Vector2D<float>& v) const
-    {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
-        {
-            setUniform(loc, v);
+            list.reserve(count);
+
+            GLchar* name = new GLchar[biggerNameLength];
+
+            for (GLuint index = 0; index < static_cast<GLuint>(count); ++index)
+            {
+                glGetActiveSubroutineName(_handle, shaderType, index, biggerNameLength, 0, name);
+
+                list.push_back(std::string(name));
+            }
+
+            delete[] name;
         }
     }
 
 
 
-    void GLProgram::setUniform(const char* name, const Vector3D<float>& v) const
+    void GLProgram::getActiveSubroutineUniforms(std::vector<GLSLSubroutineUniform>& list, GLenum shaderType) const
     {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
+        GLint count;
+        glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_UNIFORMS, &count);
+
+        GLint biggerNameLength;
+        glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH, &biggerNameLength);
+
+        if (count != GL_INVALID_ENUM && biggerNameLength != GL_INVALID_ENUM)
         {
-            setUniform(loc, v);
-        }
-    }
+            list.reserve(count);
 
+            GLchar* name = new GLchar[biggerNameLength];
 
-    
-    void GLProgram::setUniform(const char* name, const Vector4D<float>& v) const
-    {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
-        {
-            setUniform(loc, v);
-        }
-    }
+            for (GLuint index = 0; index < static_cast<GLuint>(count); ++index)
+            {
+                glGetActiveSubroutineUniformName(_handle, shaderType, index, biggerNameLength, 0, name);
 
+                GLint location = glGetSubroutineUniformLocation(_handle, shaderType, name);
 
-    
-    void GLProgram::setUniform(const char* name, Matrix3x3<float>& m) const
-    {
-        GLint loc = getUniform(name);
-        
-        if (loc != -1)
-        {
-            setUniform(loc, m);
-        }
-    }
+                GLint compatibleSubroutinesCount;
+                glGetActiveSubroutineUniformiv(_handle, shaderType, index, GL_NUM_COMPATIBLE_SUBROUTINES, &compatibleSubroutinesCount);
 
+                GLint* compatibleSubroutines = new GLint[compatibleSubroutinesCount];
+                glGetActiveSubroutineUniformiv(_handle, shaderType, index, GL_COMPATIBLE_SUBROUTINES, compatibleSubroutines);
 
-    
-    void GLProgram::setUniform(const char* name, Matrix4x4<float>& m) const
-    {
-        GLint loc = getUniform(name);
+                // @uniformArraySize is 1 if subroutine uniform is not an array
+                GLint uniformArraySize;
+                glGetActiveSubroutineUniformiv(_handle, shaderType, index, GL_UNIFORM_SIZE, &uniformArraySize);
 
-        if (loc != -1)
-        {
-            setUniform(loc, m);
-        }
-    }
+                GLSLSubroutineUniform subroutineUniform;
 
+                subroutineUniform.program = _handle;
+                subroutineUniform.location = location;
+                subroutineUniform.shaderType = shaderType;
+                subroutineUniform.name = name;
+                subroutineUniform.compatibleSubroutines = std::vector<GLint>(compatibleSubroutines, compatibleSubroutines + compatibleSubroutinesCount);
+                subroutineUniform.uniformArraySize = uniformArraySize;
 
+                list.push_back(subroutineUniform);
 
-    void GLProgram::setUniform(const char* name, GLMatrix<float>& m) const
-    {
-        GLint loc = getUniform(name);
+                delete[] compatibleSubroutines;
+            }
 
-        if (loc != -1)
-        {
-            setUniform(loc, m);
+            delete[] name;
         }
     }
 
