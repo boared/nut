@@ -60,9 +60,7 @@ namespace nut
 
     float Mother::rand()
     {
-        unsigned long number, number1, number2;
-        short n, *p;
-        unsigned short sNumber;
+        unsigned long number1, number2;
 
         // Move elements 1 to 8 to 2 to 9
         memcpy((char*)mother1 + 2,(char*)mother1 + 1, 8 * sizeof(short));
