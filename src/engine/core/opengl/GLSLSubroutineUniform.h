@@ -33,7 +33,6 @@ namespace nut
             program(0),
             location(-1),
             shaderType(GL_INVALID_ENUM),
-            name(0),
             compatibleSubroutines(),
             uniformArraySize(0)
         {

@@ -31,7 +31,6 @@ namespace nut
         GLSLVariable() :
             program(0),
             location(-1),
-            name(0),
             size(0),
             type(0),
             isUniform(false)
