@@ -184,7 +184,7 @@ namespace nut
          */
         void setUniform(GLint location, float val) const
         {
-            glUniform1f(location, val);
+            glProgramUniform1f(_handle, location, val);
         }
         
         /**
@@ -211,7 +211,7 @@ namespace nut
          */
         void setUniform(GLint location, int val) const
         {
-            glUniform1i(location, val);
+            glProgramUniform1i(_handle, location, val);
         }
         
         /**
@@ -238,7 +238,7 @@ namespace nut
          */
         void setUniform(GLint location, const Vector2D<float>& v) const
         {
-            glUniform2fv(location, 1, &v.x);
+            glProgramUniform2fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -265,7 +265,7 @@ namespace nut
          */
         void setUniform(GLint location, const Vector3D<float>& v) const
         {
-            glUniform3fv(location, 1, &v.x);
+            glProgramUniform3fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -292,7 +292,7 @@ namespace nut
          */
         void setUniform(GLint location, const Vector4D<float>& v) const
         {
-            glUniform4fv(location, 1, &v.x);
+            glProgramUniform4fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -319,7 +319,7 @@ namespace nut
          */
         void setUniform(GLint location, Matrix3x3<float>& m) const
         {
-            glUniformMatrix3fv(location, 1, GL_FALSE, &m[0]);
+            glProgramUniformMatrix3fv(_handle, location, 1, GL_FALSE, &m[0]);
         }
         
         /**
@@ -346,7 +346,7 @@ namespace nut
          */
         void setUniform(GLint location, Matrix4x4<float>& m) const
         {
-            glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
+            glProgramUniformMatrix4fv(_handle, location, 1, GL_FALSE, &m[0]);
         }
 
         /**
@@ -373,7 +373,7 @@ namespace nut
          */
         void setUniform(GLint location, GLMatrix<float>& m) const
         {
-            glUniformMatrix4fv(location, 1, GL_FALSE, &m[0]);
+            glProgramUniformMatrix4fv(_handle, location, 1, GL_FALSE, &m[0]);
         }
         
         /**
@@ -391,12 +391,26 @@ namespace nut
          */
         void setSubroutineUniforms(GLenum shaderType, GLint count, const GLuint* indices)
         {
+            GLint currentProgram;
             GLint subroutineUniformLocationsCount;
+            
+            glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+            
+            if (currentProgram != static_cast<int>(_handle))
+            {
+                glUseProgram(_handle);
+            }
+
             glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineUniformLocationsCount);
             
             if (count == subroutineUniformLocationsCount)
             {
                 glUniformSubroutinesuiv(shaderType, count, indices);
+            }
+            
+            if (currentProgram != static_cast<int>(_handle))
+            {
+                glUseProgram(currentProgram);
             }
         }
 
