@@ -2,6 +2,9 @@
  * \file GLProgram.cpp
  * \brief This class creates and handle OpenGL programs.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

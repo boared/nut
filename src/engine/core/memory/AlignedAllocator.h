@@ -3,6 +3,9 @@
  * \brief Class definition for aligned memory allocation. Aligned memory blocks
  * can be allocated statically or on the heap.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

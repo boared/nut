@@ -1,6 +1,11 @@
 /**
  * \file Exception.h
  * \brief This header contains declarations for error handling, exceptions and assertions.
+ * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
+ * @author: Eder A. Perez
  */
 
 #ifndef EXCEPTION_H

@@ -5,6 +5,9 @@
  * strings that together uniquely specify a platform. They're good to be used by
  * platform-recognition algorithms.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
  

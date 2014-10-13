@@ -4,6 +4,9 @@
  * generator producing uniformly distributed pseudo-random with a period of
  * (2^128) - 1.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

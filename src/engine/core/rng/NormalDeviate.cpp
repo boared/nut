@@ -5,6 +5,9 @@
  * 
  * source: Numerical Recipes in C, 2nd edition - chapter 7.2.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

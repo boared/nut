@@ -2,6 +2,9 @@
  * \file GLSLSubroutineUniform.h
  * \brief This class holds information about a GLSL subroutine uniform.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
  

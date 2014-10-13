@@ -2,6 +2,9 @@
  * \file GLTypeConversion.h
  * \brief This class is used for type conversion between OpenGL and nut engine.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

@@ -2,6 +2,9 @@
  * \file GLSLVariable.h
  * \brief This class holds information about a GLSL attribute or uniform variable.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
  

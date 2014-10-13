@@ -2,6 +2,9 @@
  * \file Vector2D.h
  * \brief Template class definition for 2-dimensional vectors manipulation.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

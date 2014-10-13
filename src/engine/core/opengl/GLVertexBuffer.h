@@ -6,6 +6,9 @@
  * Unless said the other way round, all methods in this class
  * keep the OpenGL state the same as before they are called.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

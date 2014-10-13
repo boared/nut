@@ -2,6 +2,9 @@
  * \file VertexAttribList.h
  * \brief This class is used for holds a buffer with generic vertices attributes.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

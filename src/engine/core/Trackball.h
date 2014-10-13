@@ -5,6 +5,9 @@
  * A virtual trackball is a device for controlling 3D rotations by moving a 2D mouse.
  * This implentation is based on Shoemake's arcball and Holroyd method.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

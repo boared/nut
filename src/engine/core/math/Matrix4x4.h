@@ -2,6 +2,9 @@
  * \file Matrix4x4.h
  * \brief Template class definition for create and handle 4x4 matrices.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

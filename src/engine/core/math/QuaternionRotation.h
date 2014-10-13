@@ -2,6 +2,9 @@
  * \file QuaternionRotation.h
  * \brief Class definition for a rotation quaternion.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

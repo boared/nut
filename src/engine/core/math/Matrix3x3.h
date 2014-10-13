@@ -2,6 +2,9 @@
  * \file Matrix3x3.h
  * \brief Template class definition for create and handle 3x3 matrices.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

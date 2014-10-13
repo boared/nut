@@ -2,6 +2,9 @@
  * \file Vector3D.h
  * \brief Template class definition for 3-dimensional vectors manipulation.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

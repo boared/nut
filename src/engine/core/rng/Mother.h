@@ -6,6 +6,9 @@
  * 
  * source: http://www.stat.berkeley.edu/classes/s243/mother.c visited on may 10, 2014.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

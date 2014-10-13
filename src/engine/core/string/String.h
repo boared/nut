@@ -2,6 +2,9 @@
  * \file String.h
  * \brief Static class for string manipulation.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

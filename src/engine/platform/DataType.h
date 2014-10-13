@@ -3,6 +3,9 @@
  * \brief This header contains declarations of general purpose data types and some
  * functions to handle them.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 

@@ -2,6 +2,9 @@
  * \file Math.h
  * \brief This header defines several mathematical functions and constants.
  * 
+ * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 Eder de Almeida Perez
+ * 
  * @author: Eder A. Perez.
  */
 
