@@ -31,7 +31,7 @@ namespace nut
          */
         static std::string getVendor()
         {
-            const char *vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+            const char *vendor = reinterpret_cast<const char*>(gl::glGetString(gl::GL_VENDOR));
 
             return std::string(vendor);
         }
@@ -45,7 +45,7 @@ namespace nut
          */
         static std::string getRenderer()
         {
-            const char *renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+            const char *renderer = reinterpret_cast<const char*>(gl::glGetString(gl::GL_RENDERER));
 
             return std::string(renderer);
         }
@@ -57,7 +57,7 @@ namespace nut
          */
         static std::string getVersion()
         {
-            const char *version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+            const char *version = reinterpret_cast<const char*>(gl::glGetString(gl::GL_VERSION));
 
             return std::string(version);
         }
@@ -69,7 +69,7 @@ namespace nut
          */
         static std::string getGLSLVersion()
         {
-            const char *glslVersion = reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
+            const char *glslVersion = reinterpret_cast<const char*>(gl::glGetString(gl::GL_SHADING_LANGUAGE_VERSION));
 
             return std::string(glslVersion);
         }
@@ -82,10 +82,10 @@ namespace nut
          * @param minor The minor version number of the OpenGL API supported by
          * the current context.
          */
-        static void getVersion(GLint& major, GLint& minor)
+        static void getVersion(gl::GLint& major, gl::GLint& minor)
         {
-            glGetIntegerv(GL_MAJOR_VERSION, &major);
-            glGetIntegerv(GL_MINOR_VERSION, &minor);
+            gl::glGetIntegerv(gl::GL_MAJOR_VERSION, &major);
+            gl::glGetIntegerv(gl::GL_MINOR_VERSION, &minor);
         }
 
         /**
@@ -95,16 +95,16 @@ namespace nut
          */
         static void getExtensions(std::vector<std::string>& extensions)
         {
-            GLint nExtensions;
+            gl::GLint nExtensions;
 
-            glGetIntegerv(GL_NUM_EXTENSIONS, &nExtensions);
+            gl::glGetIntegerv(gl::GL_NUM_EXTENSIONS, &nExtensions);
 
             extensions.clear();
             extensions.reserve(nExtensions);
 
             for (int i = 0; i < nExtensions; ++i)
             {
-                const char* extension = reinterpret_cast<const char*>(glGetStringi(GL_EXTENSIONS, i));
+                const char* extension = reinterpret_cast<const char*>(gl::glGetStringi(gl::GL_EXTENSIONS, i));
 
                 extensions.push_back(std::string(extension));
             }
