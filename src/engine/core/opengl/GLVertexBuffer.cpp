@@ -13,6 +13,8 @@
 #include "VertexAttribList.h"
 #include "GLTypeConversion.h"
 
+using namespace gl;
+
 
 
 namespace nut

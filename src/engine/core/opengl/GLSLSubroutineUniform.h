@@ -10,7 +10,7 @@
 
 #include <string>
 #include <vector>
-#include "GL/glew.h"
+#include "glbinding/gl/gl.h"
 
 
 
@@ -20,19 +20,19 @@ namespace nut
     {
         public:
 
-        GLuint program; /**< An OpenGL program where this subroutine uniform is specified for. */
-        GLint location; /**< The location of the subroutine uniform. If this subroutine uniform is an array, the location in the i-th index is location + i. */
-        GLenum shaderType; /**< A subroutine uniform is always associated to only one shader stage. */
+        gl::GLuint program; /**< An OpenGL program where this subroutine uniform is specified for. */
+        gl::GLint location; /**< The location of the subroutine uniform. If this subroutine uniform is an array, the location in the i-th index is location + i. */
+        gl::GLenum shaderType; /**< A subroutine uniform is always associated to only one shader stage. */
         std::string name; /**< The name of the subroutine uniform. */
-        std::vector<GLint> compatibleSubroutines; /**< List with indices of all compatible subroutines. */
-        GLint uniformArraySize; /*< Number of elements in case this subroutine uniform is an array, 1 if it is not. */
+        std::vector<gl::GLint> compatibleSubroutines; /**< List with indices of all compatible subroutines. */
+        gl::GLint uniformArraySize; /*< Number of elements in case this subroutine uniform is an array, 1 if it is not. */
 
 
 
         GLSLSubroutineUniform() :
             program(0),
             location(-1),
-            shaderType(GL_INVALID_ENUM),
+            shaderType(gl::GL_INVALID_ENUM),
             compatibleSubroutines(),
             uniformArraySize(0)
         {

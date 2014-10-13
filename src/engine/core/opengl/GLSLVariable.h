@@ -9,7 +9,7 @@
 #define GLSLVARIABLE_H
 
 #include <string>
-#include "GL/glew.h"
+#include "glbinding/gl/gl.h"
 
 
 
@@ -19,11 +19,11 @@ namespace nut
     {
         public:
 
-        GLuint program; /**< An OpenGL program where this variable is specified for. */
-        GLint location; /**< The location of the variable. */
+        gl::GLuint program; /**< An OpenGL program where this variable is specified for. */
+        gl::GLint location; /**< The location of the variable. */
         std::string name; /**< The name of the variable. */
-        GLint size; /**< The size of the variable. */
-        GLenum type; /**< The type of the variable. */
+        gl::GLint size; /**< The size of the variable. */
+        gl::GLenum type; /**< The type of the variable. */
         bool isUniform; /**< True if it is an uniform variable. False if it is an attribute. */
 
 
@@ -32,7 +32,7 @@ namespace nut
             program(0),
             location(-1),
             size(0),
-            type(0),
+            type(gl::GL_INT),
             isUniform(false)
         {
         }

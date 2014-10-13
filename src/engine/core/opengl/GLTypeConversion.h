@@ -8,7 +8,7 @@
 #ifndef GLTYPECONVERSION_H
 #define GLTYPECONVERSION_H
 
-#include "GL/glew.h"
+#include "glbinding/gl/gl.h"
 #include "DataType.h"
 
 
@@ -26,59 +26,58 @@ namespace nut
          * @return A corresponding GLenum. If there's no corresponding type,
          * returns GL_FALSE.
          */
-        static GLenum typeToGLenum(Type type)
+        static gl::GLenum typeToGLenum(Type type)
         {
-            GLenum glType = GL_FALSE;
+            gl::GLenum glType = gl::GL_INT;
 
             switch (type)
             {
                 case Type::CHAR:
-                    glType = GL_BYTE;
+                    glType = gl::GL_BYTE;
                     break;
 
                 case Type::INT:
-                    glType = GL_INT;
+                    glType = gl::GL_INT;
                     break;
 
                 case Type::I8:
-                    glType = GL_BYTE;
+                    glType = gl::GL_BYTE;
                     break;
 
                 case Type::I16:
-                    glType = GL_SHORT;
+                    glType = gl::GL_SHORT;
                     break;
 
                 case Type::I32:
-                    glType = GL_INT;
+                    glType = gl::GL_INT;
                     break;
 
                 case Type::UNSIGNED_CHAR:
-                    glType = GL_UNSIGNED_BYTE;
-                    break;
+                    glType = gl::GL_UNSIGNED_BYTE;
                     break;
 
                 case Type::UNSIGNED_INT:
-                    glType = GL_UNSIGNED_INT;
+                    glType = gl::GL_UNSIGNED_INT;
                     break;
 
                 case Type::U8:
-                    glType = GL_UNSIGNED_BYTE;
+                    glType = gl::GL_UNSIGNED_BYTE;
                     break;
 
                 case Type::U16:
-                    glType = GL_UNSIGNED_SHORT;
+                    glType = gl::GL_UNSIGNED_SHORT;
                     break;
 
                 case Type::U32:
-                    glType = GL_UNSIGNED_INT;
+                    glType = gl::GL_UNSIGNED_INT;
                     break;
 
                 case Type::FLOAT:
-                    glType = GL_FLOAT;
+                    glType = gl::GL_FLOAT;
                     break;
 
                 case Type::DOUBLE:
-                    glType = GL_DOUBLE;
+                    glType = gl::GL_DOUBLE;
                     break;
 
                 default:

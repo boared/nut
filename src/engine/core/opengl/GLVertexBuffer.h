@@ -14,7 +14,7 @@
 
 #include <vector>
 #include <utility>
-#include "GL/glew.h"
+#include "glbinding/gl/gl.h"
 
 
 
@@ -46,9 +46,9 @@ namespace nut
          */
         ~GLVertexBuffer()
         {
-            glDeleteVertexArrays(1, &_vaoName);
-            glDeleteBuffers(1, &_vboName);
-            glDeleteBuffers(1, &_iboName);
+            gl::glDeleteVertexArrays(1, &_vaoName);
+            gl::glDeleteBuffers(1, &_vboName);
+            gl::glDeleteBuffers(1, &_iboName);
         }
 
 
@@ -70,7 +70,7 @@ namespace nut
          * GL_STREAM_COPY, GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW,
          * GL_DYNAMIC_READ, GL_DYNAMIC_COPY.
          */
-        void set(const VertexAttribList& vertexAttribList, GLenum usage);
+        void set(const VertexAttribList& vertexAttribList, gl::GLenum usage);
 
         /**
          * Update the content of vertices. If buffer was not already created and
@@ -103,14 +103,14 @@ namespace nut
          * @param attribute The index of a vertex attribute.
          * @param variable A valid index of the generic vertex attribute returned by @glGetAttribLocation.
          */
-        void setAttrib(GLint attribute, GLint variable);
+        void setAttrib(gl::GLint attribute, gl::GLint variable);
 
         /**
          * Return the vertex buffer object name.
          * 
          * @return A GLuint representing the vertex buffer object name.
          */
-        GLuint getVBO()
+        gl::GLuint getVBO()
         {
             return _vboName;
         }
@@ -120,7 +120,7 @@ namespace nut
          * 
          * @return A GLuint representing the vertex array object name.
          */
-        GLuint getVAO()
+        gl::GLuint getVAO()
         {
             return _vaoName;
         }
@@ -130,7 +130,7 @@ namespace nut
          * 
          * @return A GLuint representing the index buffer object name.
          */
-        GLuint getIBO()
+        gl::GLuint getIBO()
         {
             return _iboName;
         }
@@ -151,11 +151,11 @@ namespace nut
 
         /// Private attributes ///
 
-        GLuint _vboName;        /**< Buffer object name for vertices properties. */
-        GLuint _iboName;        /**< Buffer object name for vertices indices. */
-        GLuint _vaoName;        /**< Vertex array object name. */
-        GLsizei _indexCount;    /**< Number of indices. */
-        GLuint _stride;         /**< Specifies the byte offset between consecutive generic vertex attributes.
+        gl::GLuint _vboName;        /**< Buffer object name for vertices properties. */
+        gl::GLuint _iboName;        /**< Buffer object name for vertices indices. */
+        gl::GLuint _vaoName;        /**< Vertex array object name. */
+        gl::GLsizei _indexCount;    /**< Number of indices. */
+        gl::GLuint _stride;         /**< Specifies the byte offset between consecutive generic vertex attributes.
                                      Actually it is the size in bytes of a vertex with all its attributes or
                                      zero if there is only one attribute (in this case the attribute is tightly packed in the array). */
 

@@ -10,7 +10,7 @@
 
 #include <string>
 #include <vector>
-#include "GL/glew.h"
+#include "glbinding/gl/gl.h"
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
@@ -44,7 +44,7 @@ namespace nut
          * @return True if compilation was successful. In case of error, fills the log
          * and returns false.
          */
-        bool compileShader(const char* shader, GLenum type, bool isFilePath);
+        bool compileShader(const char* shader, gl::GLenum type, bool isFilePath);
         
         /**
          * Attempt to link the program. If no successful call to @compileShader
@@ -63,7 +63,7 @@ namespace nut
         {
             if (_isLinked)
             {
-                glUseProgram(_handle);
+                gl::glUseProgram(_handle);
             }
         }
 
@@ -82,7 +82,7 @@ namespace nut
          * 
          * @return The handle to the OpenGL program.
          */
-        GLuint getHandle() const
+        gl::GLuint getHandle() const
         {
             return _handle;
         }
@@ -106,9 +106,9 @@ namespace nut
          * starts with the reserved prefix "gl_", or if name is associated with an
          * atomic counter or a named uniform block, then returns -1.
          */
-        GLint getUniform(const char* name) const
+        gl::GLint getUniform(const char* name) const
         {
-            return glGetUniformLocation(_handle, name);
+            return gl::glGetUniformLocation(_handle, name);
         }
 
         /**
@@ -120,9 +120,9 @@ namespace nut
          * starts with the reserved prefix "gl_", or if name is not an active attribute
          * in the program, then returns -1.
          */
-        GLint getAttribute(const char* name) const
+        gl::GLint getAttribute(const char* name) const
         {
-            return glGetAttribLocation(_handle, name);
+            return gl::glGetAttribLocation(_handle, name);
         }
 
         /**
@@ -148,7 +148,7 @@ namespace nut
          * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
          * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
          */
-        void getActiveSubroutines(std::vector<std::string>& list, GLenum shaderType) const;
+        void getActiveSubroutines(std::vector<std::string>& list, gl::GLenum shaderType) const;
 
         /**
          * Return a list containing all active subroutine uniforms.
@@ -158,7 +158,7 @@ namespace nut
          * GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER,
          * GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
          */
-        void getActiveSubroutineUniforms(std::vector<GLSLSubroutineUniform>& list, GLenum shaderType) const;
+        void getActiveSubroutineUniforms(std::vector<GLSLSubroutineUniform>& list, gl::GLenum shaderType) const;
 
         /**
          * Specify the value of a uniform variable.
@@ -168,7 +168,7 @@ namespace nut
          */
         void setUniform(const char* name, float val) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -182,9 +182,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, float val) const
+        void setUniform(gl::GLint location, float val) const
         {
-            glProgramUniform1f(_handle, location, val);
+            gl::glProgramUniform1f(_handle, location, val);
         }
         
         /**
@@ -195,7 +195,7 @@ namespace nut
          */
         void setUniform(const char* name, int val) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -209,9 +209,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, int val) const
+        void setUniform(gl::GLint location, int val) const
         {
-            glProgramUniform1i(_handle, location, val);
+            gl::glProgramUniform1i(_handle, location, val);
         }
         
         /**
@@ -222,7 +222,7 @@ namespace nut
          */
         void setUniform(const char* name, const Vector2D<float>& v) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -236,9 +236,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector2D<float>& v) const
+        void setUniform(gl::GLint location, const Vector2D<float>& v) const
         {
-            glProgramUniform2fv(_handle, location, 1, &v.x);
+            gl::glProgramUniform2fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -249,7 +249,7 @@ namespace nut
          */
         void setUniform(const char* name, const Vector3D<float>& v) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -263,9 +263,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector3D<float>& v) const
+        void setUniform(gl::GLint location, const Vector3D<float>& v) const
         {
-            glProgramUniform3fv(_handle, location, 1, &v.x);
+            gl::glProgramUniform3fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -276,7 +276,7 @@ namespace nut
          */
         void setUniform(const char* name, const Vector4D<float>& v) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -290,9 +290,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, const Vector4D<float>& v) const
+        void setUniform(gl::GLint location, const Vector4D<float>& v) const
         {
-            glProgramUniform4fv(_handle, location, 1, &v.x);
+            gl::glProgramUniform4fv(_handle, location, 1, &v.x);
         }
         
         /**
@@ -303,7 +303,7 @@ namespace nut
          */
         void setUniform(const char* name, Matrix3x3<float>& m) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -317,9 +317,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, Matrix3x3<float>& m) const
+        void setUniform(gl::GLint location, Matrix3x3<float>& m) const
         {
-            glProgramUniformMatrix3fv(_handle, location, 1, GL_FALSE, &m[0]);
+            gl::glProgramUniformMatrix3fv(_handle, location, 1, gl::GL_FALSE, &m[0]);
         }
         
         /**
@@ -330,7 +330,7 @@ namespace nut
          */
         void setUniform(const char* name, Matrix4x4<float>& m) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -344,9 +344,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, Matrix4x4<float>& m) const
+        void setUniform(gl::GLint location, Matrix4x4<float>& m) const
         {
-            glProgramUniformMatrix4fv(_handle, location, 1, GL_FALSE, &m[0]);
+            gl::glProgramUniformMatrix4fv(_handle, location, 1, gl::GL_FALSE, &m[0]);
         }
 
         /**
@@ -357,7 +357,7 @@ namespace nut
          */
         void setUniform(const char* name, GLMatrix<float>& m) const
         {
-            GLint loc = getUniform(name);
+            gl::GLint loc = getUniform(name);
 
             if (loc != -1)
             {
@@ -371,9 +371,9 @@ namespace nut
          * @param location Uniform variable location.
          * @param val New value to be used for the variable @name.
          */
-        void setUniform(GLint location, GLMatrix<float>& m) const
+        void setUniform(gl::GLint location, GLMatrix<float>& m) const
         {
-            glProgramUniformMatrix4fv(_handle, location, 1, GL_FALSE, &m[0]);
+            gl::glProgramUniformMatrix4fv(_handle, location, 1, gl::GL_FALSE, &m[0]);
         }
         
         /**
@@ -389,28 +389,28 @@ namespace nut
          * element corresponds to a subroutine function index being assigned to the subroutine
          * uniform location i.
          */
-        void setSubroutineUniforms(GLenum shaderType, GLint count, const GLuint* indices)
+        void setSubroutineUniforms(gl::GLenum shaderType, gl::GLint count, const gl::GLuint* indices)
         {
-            GLint currentProgram;
-            GLint subroutineUniformLocationsCount;
+            gl::GLint currentProgram;
+            gl::GLint subroutineUniformLocationsCount;
             
-            glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+            gl::glGetIntegerv(gl::GL_CURRENT_PROGRAM, &currentProgram);
             
             if (currentProgram != static_cast<int>(_handle))
             {
-                glUseProgram(_handle);
+                gl::glUseProgram(_handle);
             }
 
-            glGetProgramStageiv(_handle, shaderType, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineUniformLocationsCount);
+            gl::glGetProgramStageiv(_handle, shaderType, gl::GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineUniformLocationsCount);
             
             if (count == subroutineUniformLocationsCount)
             {
-                glUniformSubroutinesuiv(shaderType, count, indices);
+                gl::glUniformSubroutinesuiv(shaderType, count, indices);
             }
             
             if (currentProgram != static_cast<int>(_handle))
             {
-                glUseProgram(currentProgram);
+                gl::glUseProgram(currentProgram);
             }
         }
 
@@ -418,7 +418,7 @@ namespace nut
 
         private:
 
-        GLuint _handle; /**< An OpenGL program handle. */
+        gl::GLuint _handle; /**< An OpenGL program handle. */
         bool _isLinked; /**< True if the program was successfully linked. */
         std::string _log; /**< Store the most recent log produced by a compile or link action. */
 
@@ -430,7 +430,7 @@ namespace nut
          * @param obj It can be either a shader or program index.
          * @return True if the status is OK. Otherwise, returns false and fill the log string with information from OpenGL.
          */
-        bool _checkStatus(GLuint obj);
+        bool _checkStatus(gl::GLuint obj);
     };
 }
 

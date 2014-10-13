@@ -13,7 +13,7 @@
 
 #include <string>
 #include <vector>
-#include <GL/glew.h>
+#include "glbinding/gl/gl.h"
 
 
 

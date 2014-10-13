@@ -8,6 +8,8 @@
 #include <fstream>
 #include "GLProgram.h"
 
+using namespace gl;
+
 
 
 namespace nut
@@ -286,25 +288,25 @@ namespace nut
 
     bool GLProgram::_checkStatus(GLuint obj)
     {
-        GLint status = GL_FALSE, len = 0;
+        GLint status = static_cast<GLint>(GL_FALSE), len = 0;
 
-        if(glIsShader(obj))
+        if(glIsShader(obj) == GL_TRUE)
         {
             glGetShaderiv(obj, GL_COMPILE_STATUS, &status);
         }
-        else if(glIsProgram(obj))
+        else if(glIsProgram(obj) == GL_TRUE)
         {
             glGetProgramiv(obj, GL_LINK_STATUS, &status);
         }
 
-        if(status == GL_TRUE)
+        if(status == static_cast<GLint>(GL_TRUE))
         {
             _log = "";
         }
         else
         {
             // Set log
-            if(glIsShader(obj))
+            if(glIsShader(obj) == GL_TRUE)
             {
                 glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &len);
 
@@ -319,7 +321,7 @@ namespace nut
                     delete[] l;
                 }
             }
-            else if(glIsProgram(obj))
+            else if(glIsProgram(obj) == GL_TRUE)
             {
                 glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &len);
 
