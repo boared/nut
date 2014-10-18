@@ -47,7 +47,7 @@ solution "nut"
 
 
     -- Compiles nut engine either as static or shared (DLL) library
-    project "nutLibrary"
+    project "nut"
         targetname "nut"
         targetdir(buildPath .. "/" .. action .. "/lib")
         location(buildPath .. "/" .. action)
