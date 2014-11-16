@@ -22,7 +22,7 @@ namespace nut
      * \brief Memory pool allocator singleton.
      * 
      * The memory buffer is a double-linked list. Each memory block points to both
-     * next and previoius free memory block.
+     * next and previous free memory block.
      * 
      * Below is an example of a block of memory with its metadata:
      * 
