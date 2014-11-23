@@ -17,7 +17,7 @@ solution "nut"
     if _ACTION == "gmake" then
         cxxstd = "-std=c++11"
     elseif _ACTION == "vs2013" or _ACTION == "vs2012" or
-        _ACTION == "vs2010" or _ACTION == "vs2008" then
+           _ACTION == "vs2010" or _ACTION == "vs2008" then
         cxxstd = ""
     else
         print("Error: Could not set C++11 standard.")
@@ -53,6 +53,7 @@ solution "nut"
         location(buildPath .. "/" .. action)
         includedirs { "src/engine/**" }
         includedirs { "extlibs/glbinding/glbinding-1.0.2/include/" }
+        includedirs { "extlibs/pugixml/pugixml-1.4/src" }
         libdirs { "extlibs/glbinding/glbinding-1.0.2/lib/" }
         links { "glbinding" }
         files { "src/engine/**.h", "src/engine/**.cpp" }
