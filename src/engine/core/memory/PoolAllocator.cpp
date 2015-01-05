@@ -29,8 +29,7 @@ namespace nut
         if (blockSize > size)
             return result;
 
-        if (_buffer)
-            delete[] _buffer;
+        delete[] _buffer;
 
         // Check if alignment is zero or a power of two
         if ( alignment == 0 || Math<int>::isPowerOf2(alignment) )

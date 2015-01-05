@@ -62,7 +62,8 @@ namespace nut
          * WARNING: This function is thread-safe but should be used only once in the
          * initialization step.
          * 
-         * @param size Size of memory buffer, in bytes.
+         * @param size Size of memory buffer, in bytes. This size may be adjusted
+         * to hold an integer number of blocks.
          * @param alignment Memory alignment, in bytes (must be a power of 2).
          * @param blockSize Size in bytes any allocated memory block will have.
          * @return Return true if memory was allocated, false otherwise.
