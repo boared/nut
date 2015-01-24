@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef IRESOURCEFILE_H
-#define	IRESOURCEFILE_H
+#ifndef IRESOURCE_FILE_H
+#define	IRESOURCE_FILE_H
 
 #include <string>
 
@@ -36,4 +36,4 @@ namespace nut
             virtual static IResourceFile* createMe(const std::string& path) = 0;
     };
 }
-#endif	// IRESOURCEFILE_H
+#endif	// IRESOURCE_FILE_H
