@@ -23,18 +23,17 @@ namespace nut
     {
         public:
             
-            virtual ~IResourceFile() {}
+            virtual ~IResourceFile()
+            {
+            }
 
-            virtual bool open() = 0;
-            
             virtual int getNumberOfResources() const = 0;
             
-            virtual std::string getResourceName(int index) const = 0;
+            virtual std::string getResourceName(int index = 0) const = 0;
             
-            virtual I8* getResource(/* A parameter must be passed */) const = 0;
+            virtual BYTE* getResource(int index = 0) const = 0;
             
             virtual static IResourceFile* createMe(const std::string& path) = 0;
     };
 }
 #endif	// IRESOURCEFILE_H
-
