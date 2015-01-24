@@ -18,7 +18,9 @@
 
 namespace nut
 {
-    /// Definition of integers with specific number of bits
+    /// Definition of integral types with specific number of bits
+
+    typedef uint8_t  BYTE; /**< 8-bits. */
 
     typedef int8_t   I8;   /**< 8-bits signed integer. */
     typedef int16_t  I16;  /**< 16-bits signed integer. */
