@@ -1,5 +1,5 @@
 /** 
- * \file ModelResourceFile.h
+ * \file GeometryResourceFile.h
  * \brief 
  * 
  * Licensed under the MIT License (MIT)
@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef MODELRESOURCEFILE_H
-#define	MODELRESOURCEFILE_H
+#ifndef GEOMETRY_RESOURCE_FILE_H
+#define	GEOMETRY_RESOURCE_FILE_H
 
 #include "IResourceFile.h"
 
@@ -17,31 +17,38 @@
 
 namespace nut
 {
-    class ModelResourceFile : public IResourceFile
+    class GeometryResourceFile : public IResourceFile
     {
         public:
             
-            bool open();
-            
             int getNumberOfResources() const;
             
-            std::string getResourceName(int index) const;
+            std::string getResourceName(int index = 0) const;
             
-            I8* getResource(/* A parameter must be passed */) const;
+            BYTE* getResource(int index = 0) const;
             
             static IResourceFile* createMe(const std::string& path)
             {
-                return new ModelResourceFile(path);
+                return new GeometryResourceFile(path);
             }
 
 
 
         private:
-            
-            ModelResourceFile(const std::string& path);
 
-            std::string _metaDataXML;
+            GeometryResourceFile(const std::string& path);
+
+            void loadAnimations(aiAnimation** animations, unsigned int size);
+
+            void loadCameras(aiCamera** cameras, unsigned int size);
+
+            void loadLights(aiLight** lights, unsigned int size);
+
+            void loadMaterials(aiMaterial** materials, unsigned int size);
+
+            void loadMeshes(aiMesh** meshes, unsigned int size);
+
+            void loadTextures(aiTexture** textures, unsigned int size);
     };
 }
-#endif	// MODELRESOURCEFILE_H
-
+#endif	// GEOMETRY_RESOURCE_FILE_H

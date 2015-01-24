@@ -134,33 +134,33 @@ void GeometryResourceFile::loadMeshes(aiMesh** meshes, unsigned int size)
         // Set vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
         {
-            Vertex vertex;
+            //Vertex vertex;
 
-            vertex.setPosition(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+            //vertex.setPosition(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 
             // Normal
             if(hasNormals)
             {
-                vertex.setNormal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+                //vertex.setNormal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
             }
             
             // Tangent and bitangent
             if (hasTangentsAndBitangents)
             {
-                vertex.setTangent(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-                vertex.setBiTangent(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+                //vertex.setTangent(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
+                //vertex.setBiTangent(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
             }
             
             // Texture coordinates
             if (hasTangentsAndBitangents)
             {
-                vertex.setTextureCoord(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y, mesh->mTextureCoords[0][i].z);
+                //vertex.setTextureCoord(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y, mesh->mTextureCoords[0][i].z);
             }
 
             // Color
             if(hasColors)
             {
-                vertex.setColor(mesh->mColors[0][i].r, mesh->mColors[0][i].g, mesh->mColors[0][i].b, mesh->mColors[0][i].a);
+                //vertex.setColor(mesh->mColors[0][i].r, mesh->mColors[0][i].g, mesh->mColors[0][i].b, mesh->mColors[0][i].a);
             }
             
             // TODO: Insert vertex in the list
