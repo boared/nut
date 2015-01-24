@@ -8,8 +8,8 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef RESOURCEFILEFACTORY_H
-#define	RESOURCEFILEFACTORY_H
+#ifndef RESOURCE_FILE_FACTORY_H
+#define	RESOURCE_FILE_FACTORY_H
 
 #include <map>
 #include <string>
@@ -33,13 +33,10 @@ namespace nut
         
         void registerResourceFile(const std::string& id, CreateResourceFileFunc create)
         {
-            _resourceFiles[id] = create;
+            m_resourceFiles[id] = create;
         }
         
-        IResourceFile* create(const std::string& id, const std::string& path)
-        {
-            return _resourceFiles[id](path);
-        }
+        IResourceFile* createResourceFile(const std::string& path);
 
 
 
@@ -48,11 +45,10 @@ namespace nut
         ResourceFileFactory();
 
         // Stop the compiler generating methods of copy the object
-        ResourceFileFactory(ResourceFileFactory const& copy); // Not Implemented
-        ResourceFileFactory& operator=(ResourceFileFactory const& copy); // Not Implemented
+        ResourceFileFactory(const ResourceFileFactory& copy) = delete;
+        ResourceFileFactory& operator=(const ResourceFileFactory& copy) = delete;
 
-        std::map< std::string, CreateResourceFileFunc > _resourceFiles;
+        std::map< std::string, CreateResourceFileFunc > m_resourceFiles;
     };
 }
-#endif	// RESOURCEFILEFACTORY_H
-
+#endif	// RESOURCE_FILE_FACTORY_H
