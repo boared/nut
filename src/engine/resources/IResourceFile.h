@@ -14,11 +14,8 @@
 #include <string>
 
 
-
 namespace nut
 {
-    typedef IResourceFile* (*CreateResourceFileFunc)(const std::string& path);
-
     class IResourceFile
     {
         public:
@@ -28,12 +25,6 @@ namespace nut
             }
 
             virtual int getNumberOfResources() const = 0;
-            
-            virtual std::string getResourceName(int index = 0) const = 0;
-            
-            virtual BYTE* getResource(int index = 0) const = 0;
-            
-            virtual static IResourceFile* createMe(const std::string& path) = 0;
     };
 }
 #endif	// IRESOURCE_FILE_H
