@@ -16,24 +16,26 @@
 
 namespace nut
 {
-    class Mesh
-    {
-        public:
 
-            std::vector< Vertex >& getVertices()
-            {
-                return m_vertices;
-            }
-            
-            std::vector< int >& getIndices()
-            {
-                return m_indices;
-            }
+class Mesh
+{
+    public:
 
-        private:
+        std::vector< Vertex >& getVertices()
+        {
+            return m_vertices;
+        }
 
-            std::vector< Vertex > m_vertices;
-            std::vector< int > m_indices;
-    };
+        std::vector< int >& getIndices()
+        {
+            return m_indices;
+        }
+
+    private:
+
+        std::vector< Vertex > m_vertices;
+        std::vector< int > m_indices;
+};
+
 }
 #endif // MESH_H

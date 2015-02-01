@@ -16,14 +16,16 @@
 
 namespace nut
 {
-    class Vertex
-    {
-        public:
 
-            Vec3f pos;
-            Vec3f normal;
-            Vec3f tangent;
-            Vec3f bitangent;
-    };
+class Vertex
+{
+    public:
+
+        Vec3f pos;
+        Vec3f normal;
+        Vec3f tangent;
+        Vec3f bitangent;
+};
+
 }
 #endif // VERTEX_H

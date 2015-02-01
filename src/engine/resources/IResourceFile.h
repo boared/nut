@@ -16,15 +16,17 @@
 
 namespace nut
 {
-    class IResourceFile
-    {
-        public:
-            
-            virtual ~IResourceFile()
-            {
-            }
 
-            virtual int getNumberOfResources() const = 0;
-    };
+class IResourceFile
+{
+    public:
+
+        virtual ~IResourceFile()
+        {
+        }
+
+        virtual int getNumberOfResources() const = 0;
+};
+
 }
 #endif	// IRESOURCE_FILE_H
