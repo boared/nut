@@ -1,5 +1,5 @@
 /** 
- * \file GeometryResourceFile.cpp
+ * \file ModelResourceFile.cpp
  * \brief 
  * 
  * Licensed under the MIT License (MIT)
@@ -8,15 +8,19 @@
  * @author: Eder A. Perez.
  */
 
+#include <iostream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "GeometryResourceFile.h"
+#include "ModelResourceFile.h"
+#include "Mesh.h"
 
 
+namespace nut
+{
 
-GeometryResourceFile::GeometryResourceFile(const std::string& path)
+ModelResourceFile::ModelResourceFile( const std::string& path )
 {
     Assimp::Importer importer;
     
@@ -30,158 +34,114 @@ GeometryResourceFile::GeometryResourceFile(const std::string& path)
                                                    aiProcess_GenUVCoords | // Converts non-UV mappings (such as spherical or cylindrical mapping) to proper texture coordinate channels
                                                    aiProcess_SortByPType); // This step splits meshes with more than one primitive type in homogeneous sub-meshes
 
-    if ( scene == std::nullptr )
+    if ( scene != nullptr )
+    {
+        m_numberOfResources = scene->mNumMeshes;// +
+//                              scene->mNumAnimations +
+//                              scene->mNumCameras +
+//                              scene->mNumLights +
+//                              scene->mNumMaterials +
+//                              scene->mNumTextures;
+
+        if ( scene->HasMeshes() )
+        {
+            m_meshes.reserve( scene->mNumMeshes );
+            loadMeshes(scene->mMeshes, scene->mNumMeshes);
+        }
+
+//        if (scene->HasAnimations())
+//        {
+//            loadAnimations(scene->mAnimations, scene->mNumAnimations);
+//        }
+//        
+//        if (scene->HasCameras())
+//        {
+//            loadCameras(scene->mCameras, scene->mNumCameras);
+//        }
+//
+//        if (scene->HasLights())
+//        {
+//            loadLights(scene->mLights, scene->mNumLights);
+//        }
+//
+//        if (scene->HasMaterials())
+//        {
+//            loadMaterials(scene->mMaterials, scene->mNumMaterials);
+//        }
+//
+//        if (scene->HasTextures())
+//        {
+//            loadTextures(scene->mTextures, scene->mNumTextures);
+//        }
+    }
+    else
     {
         const char* error = importer.GetErrorString();
-        // TODO: Error message
-        
-        return;
-    }
-    
-    if (scene->HasAnimations())
-    {
-        loadAnimations(scene->mAnimations, scene->mNumAnimations);
-    }
-    
-    if (scene->HasCameras())
-    {
-        loadCameras(scene->mCameras, scene->mNumCameras);
-    }
-    
-    if (scene->HasLights())
-    {
-        loadLights(scene->mLights, scene->mNumLights);
-    }
-    
-    if (scene->HasMaterials())
-    {
-        loadMaterials(scene->mMaterials, scene->mNumMaterials);
-    }
-    
-    if (scene->HasMeshes())
-    {
-        loadMeshes(scene->mMeshes, scene->mNumMeshes);
-    }
-    
-    if (scene->HasTextures())
-    {
-        loadTextures(scene->mTextures, scene->mNumTextures);
+        std::cerr << "nut::ModelResourceFile error: " << error << "\n";
     }
 }
 
 
 
-int GeometryResourceFile::getNumberOfResources()
-{
-    return 0;
-}
-
-
-
-std::string GeometryResourceFile::getResourceName(int index = 0)
-{
-    return std::string;
-}
-
-
-
-BYTE* GeometryResourceFile::getResource(int index = 0)
-{
-    return std::nullptr;
-}
-
-
-
-void GeometryResourceFile::loadAnimations(aiAnimation** animations, unsigned int size)
-{
-    
-}
-
-
-
-void GeometryResourceFile::loadCameras(aiCamera** cameras, unsigned int size)
-{
-    
-}
-
-
-
-void GeometryResourceFile::loadLights(aiLight** lights, unsigned int size)
-{
-    
-}
-
-
-
-void GeometryResourceFile::loadMaterials(aiMaterial** materials, unsigned int size)
-{
-    
-}
-
-
-
-void GeometryResourceFile::loadMeshes(aiMesh** meshes, unsigned int size)
+void ModelResourceFile::loadMeshes( aiMesh** meshes, unsigned int size )
 {
     for (unsigned int n = 0; n < size; ++n)
     {
         const aiMesh* mesh = meshes[n];
-        
         bool hasNormals = mesh->HasNormals();
         bool hasTangentsAndBitangents = mesh->HasTangentsAndBitangents();
-        bool hasTextureCoords = mesh->HasTextureCoords();
-        bool hasColors = mesh->HasColors();
+
+        Mesh nutMesh;
+
+        std::vector< Vertex >& vertices = nutMesh.getVertices();
+        vertices.reserve( mesh->mNumVertices );
 
         // Set vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
         {
-            //Vertex vertex;
+            Vertex nutVertex;
+            
+            nutVertex.pos.x = mesh->mVertices[i].x;
+            nutVertex.pos.y = mesh->mVertices[i].y;
+            nutVertex.pos.z = mesh->mVertices[i].z;
 
-            //vertex.setPosition(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-
-            // Normal
-            if(hasNormals)
+            if( hasNormals )
             {
-                //vertex.setNormal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+                nutVertex.normal.x = mesh->mNormals[i].x;
+                nutVertex.normal.y = mesh->mNormals[i].y;
+                nutVertex.normal.z = mesh->mNormals[i].z;
             }
             
             // Tangent and bitangent
-            if (hasTangentsAndBitangents)
+            if ( hasTangentsAndBitangents )
             {
-                //vertex.setTangent(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-                //vertex.setBiTangent(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
-            }
-            
-            // Texture coordinates
-            if (hasTangentsAndBitangents)
-            {
-                //vertex.setTextureCoord(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y, mesh->mTextureCoords[0][i].z);
+                nutVertex.tangent.x = mesh->mTangents[i].x;
+                nutVertex.tangent.y = mesh->mTangents[i].y;
+                nutVertex.tangent.z = mesh->mTangents[i].z;
+
+                nutVertex.bitangent.x = mesh->mBitangents[i].x;
+                nutVertex.bitangent.y = mesh->mBitangents[i].y;
+                nutVertex.bitangent.z = mesh->mBitangents[i].z;
             }
 
-            // Color
-            if(hasColors)
-            {
-                //vertex.setColor(mesh->mColors[0][i].r, mesh->mColors[0][i].g, mesh->mColors[0][i].b, mesh->mColors[0][i].a);
-            }
-            
-            // TODO: Insert vertex in the list
+            vertices.push_back( nutVertex );
         }
 
-        // Set indices
+        // Set triangulation
+        std::vector< int >& indices = nutMesh.getIndices();
+        indices.reserve( mesh->mNumFaces * 3 );
+        
         for (unsigned int f = 0; f < mesh->mNumFaces; ++f)
         {
             const struct aiFace* face = &mesh->mFaces[f];
-
-            for(unsigned int j = 0; j < face->mNumIndices; j++)
-            {
-                // TODO: Insert index face->mIndices[j] in the list of indices
-            }
+            
+            indices.push_back( face->mIndices[0] );
+            indices.push_back( face->mIndices[1] );
+            indices.push_back( face->mIndices[2] );
         }
+
+        m_meshes.push_back( nutMesh );
     }
 }
 
-
-
-void GeometryResourceFile::loadTextures(aiTexture** textures, unsigned int size)
-{
-    
-}
+} // End namespace

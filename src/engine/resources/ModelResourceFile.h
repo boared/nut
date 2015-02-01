@@ -1,5 +1,5 @@
 /** 
- * \file GeometryResourceFile.h
+ * \file ModelResourceFile.h
  * \brief 
  * 
  * Licensed under the MIT License (MIT)
@@ -8,47 +8,44 @@
  * @author: Eder A. Perez.
  */
 
-#ifndef GEOMETRY_RESOURCE_FILE_H
-#define	GEOMETRY_RESOURCE_FILE_H
+#ifndef MODEL_RESOURCE_FILE_H
+#define	MODEL_RESOURCE_FILE_H
 
 #include "IResourceFile.h"
 
+class aiMesh;
 
 
 namespace nut
 {
-    class GeometryResourceFile : public IResourceFile
-    {
-        public:
-            
-            int getNumberOfResources() const;
-            
-            std::string getResourceName(int index = 0) const;
-            
-            BYTE* getResource(int index = 0) const;
-            
-            static IResourceFile* createMe(const std::string& path)
-            {
-                return new GeometryResourceFile(path);
-            }
+
+class Mesh;
+
+class ModelResourceFile : public IResourceFile
+{
+    public:
+
+        int getNumberOfResources() const
+        {
+            return m_numberOfResources;
+        }
+
+        static IResourceFile* createMe( const std::string& path )
+        {
+            return new ModelResourceFile( path );
+        }
 
 
+    private:
 
-        private:
+        ModelResourceFile(const std::string& path);
 
-            GeometryResourceFile(const std::string& path);
+        void loadMeshes(aiMesh** meshes, unsigned int size);
 
-            void loadAnimations(aiAnimation** animations, unsigned int size);
 
-            void loadCameras(aiCamera** cameras, unsigned int size);
+        size_t m_numberOfResources; /**< Number of resources in this file. */
+        std::vector< Mesh > m_meshes; /**< List containing all meshes in this resource file. */
+};
 
-            void loadLights(aiLight** lights, unsigned int size);
-
-            void loadMaterials(aiMaterial** materials, unsigned int size);
-
-            void loadMeshes(aiMesh** meshes, unsigned int size);
-
-            void loadTextures(aiTexture** textures, unsigned int size);
-    };
 }
-#endif	// GEOMETRY_RESOURCE_FILE_H
+#endif	// MODEL_RESOURCE_FILE_H
