@@ -13,9 +13,6 @@
 
 #include <algorithm>
 #include <sstream>
-#include <iostream>
-#include <string>
-#include <iterator>
 
 
 namespace nut
