@@ -13,7 +13,7 @@
 
 #include <map>
 #include <string>
-
+#include "ResourceFileId.h"
 
 
 namespace nut
@@ -32,7 +32,7 @@ class ResourceFileFactory
         return instance;
     }
 
-    void registerResourceFile(const std::string& id, CreateResourceFileFunc create)
+    void registerResourceFile(ResourceFileId id, CreateResourceFileFunc create)
     {
         m_resourceFiles[id] = create;
     }
@@ -42,13 +42,18 @@ class ResourceFileFactory
 
     private:
 
-    ResourceFileFactory();
+    ResourceFileFactory()
+    {
+
+    }
 
     // Stop the compiler generating methods of copy the object
     ResourceFileFactory(const ResourceFileFactory& copy) = delete;
     ResourceFileFactory& operator=(const ResourceFileFactory& copy) = delete;
+    
+    ResourceFileId getResourceFileIdByExtension(const std::string& extension);
 
-    std::map< std::string, CreateResourceFileFunc > m_resourceFiles;
+    std::map< ResourceFileId, CreateResourceFileFunc > m_resourceFiles;
 };
 
 }

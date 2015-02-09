@@ -23,9 +23,10 @@ class IResourceFile
 
         virtual ~IResourceFile()
         {
+
         }
 
-        virtual int getNumberOfResources() const = 0;
+        virtual size_t getNumberOfResources() const = 0;
 };
 
 }

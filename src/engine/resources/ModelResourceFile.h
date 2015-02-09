@@ -24,15 +24,25 @@ class Mesh;
 class ModelResourceFile : public IResourceFile
 {
     public:
+        
+        static IResourceFile* createMe( const std::string& path )
+        {
+            return new ModelResourceFile( path );
+        }
 
-        int getNumberOfResources() const
+        size_t getNumberOfResources() const
         {
             return m_numberOfResources;
         }
 
-        static IResourceFile* createMe( const std::string& path )
+        bool hasMeshes()
         {
-            return new ModelResourceFile( path );
+            return m_meshes.size() > 0;
+        }
+        
+        size_t getNumberOfMeshes() const
+        {
+            return m_meshes.size();
         }
 
 

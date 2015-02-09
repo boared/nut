@@ -20,7 +20,7 @@
 namespace nut
 {
 
-ModelResourceFile::ModelResourceFile( const std::string& path )
+ModelResourceFile::ModelResourceFile( const std::string& path ) : m_numberOfResources(0)
 {
     Assimp::Importer importer;
     
@@ -128,16 +128,16 @@ void ModelResourceFile::loadMeshes( aiMesh** meshes, unsigned int size )
         }
 
         // Set triangulation
-        std::vector< int >& indices = nutMesh.getIndices();
-        indices.reserve( mesh->mNumFaces * 3 );
+        std::vector< int >& triangulation = nutMesh.getTriangulation();
+        triangulation.reserve( mesh->mNumFaces * 3 );
         
         for (unsigned int f = 0; f < mesh->mNumFaces; ++f)
         {
             const struct aiFace* face = &mesh->mFaces[f];
             
-            indices.push_back( face->mIndices[0] );
-            indices.push_back( face->mIndices[1] );
-            indices.push_back( face->mIndices[2] );
+            triangulation.push_back( face->mIndices[0] );
+            triangulation.push_back( face->mIndices[1] );
+            triangulation.push_back( face->mIndices[2] );
         }
 
         m_meshes.push_back( nutMesh );

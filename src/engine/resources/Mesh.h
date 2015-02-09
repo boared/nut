@@ -26,15 +26,15 @@ class Mesh
             return m_vertices;
         }
 
-        std::vector< int >& getIndices()
+        std::vector< int >& getTriangulation()
         {
-            return m_indices;
+            return m_triangulation;
         }
 
     private:
 
         std::vector< Vertex > m_vertices;
-        std::vector< int > m_indices;
+        std::vector< int > m_triangulation;
 };
 
 }
