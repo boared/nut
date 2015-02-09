@@ -1,3 +1,10 @@
+-- Abort build configuration
+function abort( message )
+    print(message)
+    print("Aborting build configuration...")
+    os.exit()
+end
+
 solution "nut"
 
     local buildPath = "build"
@@ -6,11 +13,9 @@ solution "nut"
     local cxxstd -- C++ standard
 
 
-
     if _ACTION then
         action = _ACTION
     end
-
 
 
     -- Setting C++11 standard
@@ -20,10 +25,18 @@ solution "nut"
            _ACTION == "vs2010" or _ACTION == "vs2008" then
         cxxstd = ""
     else
-        print("Error: Could not set C++11 standard.")
+        abort("Error: Could not set C++11 standard.")
         cxxstd = ""
     end
 
+
+    -- Checking for third party library dependencies
+    
+    -- Assimp
+    libpath = os.findlib("assimp")
+    if libpath == nil then
+        print("Error: Could not find Assimp library.")
+    end
 
 
     -- Creating include dir and copying headers
@@ -38,12 +51,10 @@ solution "nut"
     end
 
 
-
     -- Setting solution options
     configurations { "ReleaseStatic", "ReleaseShared", "DebugStatic", "DebugShared" }
     location (buildPath .. "/" .. action)
     buildoptions { cxxstd }
-
 
 
     -- Compiles nut engine either as static or shared (DLL) library
