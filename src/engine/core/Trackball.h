@@ -3,7 +3,7 @@
  * \brief This class implements a virtual trackball.
  * 
  * A virtual trackball is a device for controlling 3D rotations by moving a 2D mouse.
- * This implentation is based on Shoemake's arcball and Holroyd method.
+ * This implementation is based on Shoemake's arcball and Holroyd method.
  * 
  * Licensed under the MIT License (MIT)
  * Copyright (c) 2014 Eder de Almeida Perez
@@ -20,48 +20,30 @@
 #include "GLMatrix.h"
 
 
-
 namespace nut
 {
     class Trackball
     {
         public:
 
-        /**
-         * Default constructor.
-         * 
-         * Set radius to 1.
-         */
-        Trackball() : _radius(1.0f) {}
+        Trackball() : mRadius( 1.0f ) {}
 
-        /**
-         * Constructor.
-         * 
-         * @param radius Sphere's radius.
-         */
-        Trackball(float radius)
+        Trackball( float radius ) : Trackball()
         {
-            if (radius > 0.0f)
-            {
-                _radius = radius;
-            }
-            else
-            {
-                _radius = 1.0f;
-            }
+            setRadius( radius );
         }
-
-
 
         /**
          * Change radius' value.
          * 
          * @param radius New radius.
          */
-        void setRadius(float radius)
+        void setRadius( float radius )
         {
-            if (radius > 0.0f)
-                _radius = radius;
+            if ( radius > 0.0f )
+            {
+                mRadius = radius;
+            }
         }
 
         /**
@@ -70,9 +52,9 @@ namespace nut
          * @param x X-coordinate.
          * @param y Y-coordinate.
          */
-        void startDrag(float x, float y)
+        void startDrag( float x, float y )
         {
-            _setProjectedPoint(_Pa, x, y);
+            setProjectedPoint( mPa, x, y );
         }
 
         /**
@@ -81,15 +63,15 @@ namespace nut
          * @param x X-coordinate.
          * @param y Y-coordinate.
          */
-        void drag(float x, float y)
+        void drag( float x, float y )
         {
-            _setProjectedPoint(_Pc, x, y);
+            setProjectedPoint( mPc, x, y );
 
             // Update rotation matrix
-            Vector3D<float> u = _Pa.cross(_Pc);
-            float theta = atan( u.length() / (_Pa * _Pc) );
+            Vector3D<float> u = mPa.cross( mPc );
+            float theta = atan( u.length() / ( mPa * mPc ) );
 
-            _m.rotate(u.x, u.y, u.z, theta);
+            mRotationMatrix.rotate( u.x, u.y, u.z, theta );
         }
         
         /**
@@ -97,7 +79,7 @@ namespace nut
          */
         void reset()
         {
-            _m.setIdentity();
+            mRotationMatrix.setIdentity();
         }
         
         /**
@@ -105,42 +87,37 @@ namespace nut
          * 
          * @return A @GLMatrix representing the current rotation.
          */
-        GLMatrix<float> getRotation()
+        const GLMatrix<float>& getRotation()
         {
-            return _m;
+            return mRotationMatrix;
         }
-
 
 
         private:
 
-        float _radius;
-        Vector3D<float> _Pa;
-        Vector3D<float> _Pc;
-        GLMatrix<float> _m;
-        
-        /**
-         * 
-         * @param p
-         * @param x
-         * @param y
-         */
-        void _setProjectedPoint(Vector3D<float>& p, float x, float y)
+        void setProjectedPoint( Vector3D<float>& p, float x, float y )
         {
-            float r = std::sqrt(x * x + y * y);
+            float r = std::sqrt( x * x + y * y );
 
             // Compute projected point using Holroyd's method
             p.x = x;
             p.y = y;
-            if (r <= (_radius / Math<float>::SQRT_2))
+            if ( r <= ( mRadius / Math<float>::SQRT_2 ) )
             {
-                p.z = std::sqrt(_radius * _radius - (x * x + y * y));
+                p.z = std::sqrt( mRadius * mRadius - ( x * x + y * y ) );
             }
             else
             {
-                p.z = (_radius * _radius) / (2.0f * r);
+                p.z = ( mRadius * mRadius ) / ( 2.0f * r );
             }
         }
+        
+
+        float mRadius;
+        Vector3D<float> mPa;
+        Vector3D<float> mPc;
+        GLMatrix<float> mRotationMatrix;
     };
 }
+
 #endif // TRACKBALL_H
